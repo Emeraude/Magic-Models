@@ -42,7 +42,7 @@ var magic = function(config, callback) {
 	    hasOne: {},
 	    hasMany: {}
 	};
-	/* TODO : foreach fields to do some cool things */
+	/* TODO : foreach fields to do some cool things (validations rules, etc...) */
 	_.each(fields, function(field, i) {
 	    if (!field.fieldName)
 		field.fieldName = i;
@@ -70,6 +70,9 @@ var magic = function(config, callback) {
 	    }
 	    options.count = true;
 	    selects.all(orm, model, options, callback);
+	}
+	model.describe = function(callback) {
+	    orm.query('DESCRIBE ' + model.table, callback);
 	}
 	orm.models[name] = model;
     }
