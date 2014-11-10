@@ -63,6 +63,14 @@ var magic = function(config, callback) {
 	    options.limit = 1;
 	    selects.all(orm, model, options, callback);
 	}
+	model.count = function(options, callback) {
+	    if (callback == undefined) {
+		callback = options;
+		options = {};
+	    }
+	    options.count = true;
+	    selects.all(orm, model, options, callback);
+	}
 	orm.models[name] = model;
     }
     orm.client = c;

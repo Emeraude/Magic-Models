@@ -70,15 +70,19 @@ function where(orm, conditions) {
 
 module.exports.all = function(orm, model, options, callback) {
     query = 'SELECT';
-    if (!options.fields)
-	options.fields = _.keys(model.fields);
-    _.each(options.fields, function(where) {
-	if (model.fields[where])
-	    query += ' `' + orm.client.escape(model.fields[where].fieldName) + '` AS `' + orm.client.escape(where) + '`,';
-	else
-	    console.warn('Warning: `' + orm.client.escape(where) + '` field is not defined in the model `' + orm.client.escape(model.name) + '`');
-    });
-    query = query.substring(0, query.length - 1);
+    if (options.count == true)
+	query += ' COUNT(*) AS count';
+    else {
+	if (!options.fields)
+	    options.fields = _.keys(model.fields);
+	_.each(options.fields, function(where) {
+	    if (model.fields[where])
+		query += ' `' + orm.client.escape(model.fields[where].fieldName) + '` AS `' + orm.client.escape(where) + '`,';
+	    else
+		console.warn('Warning: `' + orm.client.escape(where) + '` field is not defined in the model `' + orm.client.escape(model.name) + '`');
+	});
+	query = query.substring(0, query.length - 1);
+    }
     query += ' FROM `' + model.table + '`';
     if (options.where) {
 	query += ' WHERE';
