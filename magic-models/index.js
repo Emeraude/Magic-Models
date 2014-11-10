@@ -55,6 +55,14 @@ var magic = function(config, callback) {
 	    }
 	    selects.all(orm, model, options, callback);
 	}
+	model.find = function(options, callback) {
+	    if (callback == undefined) {
+		callback = options;
+		options = {};
+	    }
+	    options.limit = 1;
+	    selects.all(orm, model, options, callback);
+	}
 	orm.models[name] = model;
     }
     orm.client = c;
