@@ -69,7 +69,7 @@ function where(orm, conditions) {
     });
 }
 
-module.exports.all = function(orm, model, options, callback) {
+function select(orm, model, options, callback) {
     query = 'SELECT';
     if (options.count == true)
 	query += ' COUNT(*) AS count';
@@ -115,4 +115,30 @@ module.exports.all = function(orm, model, options, callback) {
     }
     console.log(query);
     orm.query(query, callback);
+}
+
+function typed(orm, model, options, callback, type) {
+    if (callback == undefined) {
+	callback = options;
+	options = {};
+    }
+    if (type) {
+	if (type == 'find')
+	    options.limit = 1;
+	else if (type == 'count')
+	    options.count = true;
+    }
+    select(orm, model, options, callback);
+}
+
+module.exports.all = function(orm, model, options, callback) {
+    typed(orm, model, options, callback);
+}
+
+module.exports.find = function(orm, model, options, callback) {
+    typed(orm, model, options, callback, 'find');
+}
+
+module.exports.count = function(orm, model, options, callback) {
+    typed(orm, model, options, callback, 'count');
 }

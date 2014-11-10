@@ -40,7 +40,19 @@ var magic = function(config, callback) {
 	    name: name,
 	    table: name,
 	    hasOne: {},
-	    hasMany: {}
+	    hasMany: {},
+	    all: function(options, callback) {
+		selects.all(orm, model, options, callback);
+	    },
+	    find: function(options, callback) {
+		selects.find(orm, model, options, callback);
+	    },
+	    count: function(options, callback) {
+		selects.count(orm, model, options, callback);
+	    },
+	    describe: function(callback) {
+		orm.query('DESCRIBE ' + model.table, callback);
+	    }
 	};
 	/* TODO : foreach fields to do some cool things (validations rules, etc...) */
 	_.each(fields, function(field, i) {
@@ -48,32 +60,7 @@ var magic = function(config, callback) {
 		field.fieldName = i;
 	    model.fields[i] = field;
 	});
-	model.all = function(options, callback) {
-	    if (callback == undefined) {
-		callback = options;
-		options = {};
-	    }
-	    selects.all(orm, model, options, callback);
-	}
-	model.find = function(options, callback) {
-	    if (callback == undefined) {
-		callback = options;
-		options = {};
-	    }
-	    options.limit = 1;
-	    selects.all(orm, model, options, callback);
-	}
-	model.count = function(options, callback) {
-	    if (callback == undefined) {
-		callback = options;
-		options = {};
-	    }
-	    options.count = true;
-	    selects.all(orm, model, options, callback);
-	}
-	model.describe = function(callback) {
-	    orm.query('DESCRIBE ' + model.table, callback);
-	}
+
 	orm.models[name] = model;
     }
     orm.client = c;
