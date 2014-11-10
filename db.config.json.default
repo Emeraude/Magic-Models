@@ -1,0 +1,6 @@
+{
+    "host": "localhost",
+    "db": "magic-models",
+    "user": "root",
+    "password": ""
+}
