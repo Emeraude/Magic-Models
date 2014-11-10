@@ -1,0 +1,32 @@
+{
+    "name": "Magic-Models",
+    "description": "A simple, free software magical ORM.",
+    "version": "0.1.1",
+    "keywords": [
+	"free software",
+	"magic",
+	"magic-models",
+	"model",
+	"models",
+	"orm"
+    ],
+    "repository": {
+	"type": "git",
+	"url": "git@gitlab.com:Emeraude/magic-models.git"
+    },
+    "author": {
+	"name": "Emeraude",
+	"email": "broggi_t@epitech.eu",
+	"url": "http://broggit.me"
+    },
+    "license": "GPLv2",
+    "dependencies": {
+	"lodash": "~2.4.1",
+	"mariasql": "~0.1.21"
+    },
+    "homepage": "https://gitlab.com/Emeraude/magic-models",
+    "os": [
+	"linux"
+    ],
+    "readme": "README.md"
+}

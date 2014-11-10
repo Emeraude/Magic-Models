@@ -5,6 +5,7 @@ comparisonOp = {
     'lt': '<',
     'lte': '<=',
     'neq': '!=',
+    'eq': '=',
     'not': 'NOT',
     'like': 'LIKE'
 };
@@ -75,6 +76,8 @@ module.exports.all = function(orm, model, options, callback) {
     else {
 	if (!options.fields)
 	    options.fields = _.keys(model.fields);
+	if (typeof(options.fields) == 'string')
+	    options.fields = [options.fields];
 	_.each(options.fields, function(where) {
 	    if (model.fields[where])
 		query += ' `' + orm.client.escape(model.fields[where].fieldName) + '` AS `' + orm.client.escape(where) + '`,';
@@ -90,6 +93,8 @@ module.exports.all = function(orm, model, options, callback) {
     }
     if (options.group) {
 	query += ' GROUP BY';
+	if (typeof(options.group) == 'string')
+	    options.group = [options.group];
 	_.each(options.group, function(group) {
 	    query += ' `' + orm.client.escape(group) + '`,';
 	});
