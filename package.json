@@ -19,7 +19,7 @@
 	"email": "broggi_t@epitech.eu",
 	"url": "http://broggit.me"
     },
-    "license": "GPLv2",
+    "license": "GPL-2.0",
     "dependencies": {
 	"lodash": "~2.4.1",
 	"mariasql": "~0.1.21"

@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var tools = require('./tools');
 comparisonOp = {
     'gt': '>',
     'gte': '>=',
@@ -9,13 +10,6 @@ comparisonOp = {
     'not': 'NOT',
     'like': 'LIKE'
 };
-
-function escapeValue(orm, value) {
-    if (typeof(value) == 'string')
-	return '"' + orm.client.escape(value) + '"';
-    else
-	return '"' + value + '"';
-}
 
 function where(orm, conditions) {
     _.each(conditions, function(value, field) {
@@ -37,7 +31,7 @@ function where(orm, conditions) {
 	    else if (value instanceof Array) {
 		query += ' `' + field + '` IN (';
 		_.each(value, function(val, i) {
-		    query += escapeValue(orm, val);
+		    query += tools.escapeValue(orm, val);
 		    for (key in val);
 		    if (i != key)
 			query += ',';
@@ -47,15 +41,15 @@ function where(orm, conditions) {
 	    else {
 		_.each(value, function(val, condition) {
 		    if (comparisonOp[condition])
-			query += ' `' + field + '` ' + comparisonOp[condition] + ' ' + escapeValue(orm, val);
+			query += ' `' + field + '` ' + comparisonOp[condition] + ' ' + tools.escapeValue(orm, val);
 		    else if (condition == 'between')
-			query += ' `' + field + '` BETWEEN ' + escapeValue(orm, val[0]) + ' AND ' + escapeValue(orm, val[1]);
+			query += ' `' + field + '` BETWEEN ' + tools.escapeValue(orm, val[0]) + ' AND ' + tools.escapeValue(orm, val[1]);
 		    else if (condition == 'match') {
 			if (val instanceof RegExp) {
 			    val += '';
 			    val = val.substring(1, val.length - 1 - (val[val.length - 1] != '/'))
 			}
-			query += ' `' + field + '` REGEXP ' + escapeValue(orm, val);
+			query += ' `' + field + '` REGEXP ' + tools.escapeValue(orm, val);
 		    }
 		    for (key in value);
 		    if (condition != key)
@@ -113,7 +107,6 @@ function select(orm, model, options, callback) {
 	if (options.offset)
 	    query += ' OFFSET ' + parseInt(options.offset);
     }
-    console.log(query);
     orm.query(query, callback);
 }
 

@@ -6,6 +6,7 @@ var magic = function(config, callback) {
     var c = new Client();
     var orm = new EventEmitter;
     var selects = require('./selects');
+    var inserts = require('./inserts');
     orm.models = {};
 
     console.log = function(a) {
@@ -35,6 +36,7 @@ var magic = function(config, callback) {
 
     orm.define = function(name, fields, options) {
 	/* TODO : change table attribute (singular => plural) */
+	/* TODO : manage fieldName for all selects : where/group/order*/
 	var model = {
 	    fields: {},
 	    name: name,
@@ -44,14 +46,17 @@ var magic = function(config, callback) {
 	    all: function(options, callback) {
 		selects.all(orm, model, options, callback);
 	    },
-	    find: function(options, callback) {
-		selects.find(orm, model, options, callback);
-	    },
 	    count: function(options, callback) {
 		selects.count(orm, model, options, callback);
 	    },
+	    create: function(options, callback) {
+		inserts.create(orm, model, options, callback);
+	    },
 	    describe: function(callback) {
 		orm.query('DESCRIBE ' + model.table, callback);
+	    },
+	    find: function(options, callback) {
+		selects.find(orm, model, options, callback);
 	    }
 	};
 	/* TODO : foreach fields to do some cool things (validations rules, etc...) */
