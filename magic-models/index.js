@@ -3,25 +3,27 @@ var magic = function(config, callback) {
     var util = require('util');
     var _ = require('lodash');
     var EventEmitter = require('events').EventEmitter;
-    var c = new Client();
     var orm = new EventEmitter;
     var selects = require('./selects');
     var inserts = require('./inserts');
     orm.models = {};
+    orm.client = new Client();
 
     console.log = function(a) {
 	console.info(util.inspect(a, {colors: true}));
     }
 
-    c.connect(config);
-    c.on('connect', function() {
+    orm.client.connect(config);
+    orm.client.on('connect', function() {
 	orm.emit('loaded');
     }).on('error', function(e) {
 	orm.emit('error', e);
     });
 
+    orm.validate = require('./validation');
+
     orm.query = function(query, callback) {
-	c.query(query)
+	orm.client.query(query)
 	    .on('result', function(res) {
 		var datas = [];
 		res.on('row', function(row) {
@@ -68,7 +70,6 @@ var magic = function(config, callback) {
 
 	orm.models[name] = model;
     }
-    orm.client = c;
     return orm;
 }
 
