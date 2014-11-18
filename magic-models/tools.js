@@ -13,12 +13,13 @@ module.exports.validate = function(orm, model, data) {
 	if (field.validate) {
 	    _.each(field.validate, function(config, rule) {
 		if (orm.validate[rule]) {
-		    if (config instanceof Object)
+		    if (Object.prototype.toString.call(config) == '[object Object]') {
 			if (!orm.validate[rule](data[fieldName], config.val, data))
 			    errors.push(config.msg);
-		    else
+		    }
+		    else {
 			if (!orm.validate[rule](data[fieldName], config, data))
-			    errors.push('Rule "' + rule + '" for field `' + fieldName + '` has not been successfully validated.');
+			    errors.push('Rule "' + rule + '" for field `' + fieldName + '` has not been successfully validated.');}
 		}
 		else {
 		    if (config instanceof Function) {
