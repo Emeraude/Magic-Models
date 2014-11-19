@@ -1,7 +1,7 @@
 {
-    "name": "Magic-Models",
+    "name": "magic-models",
     "description": "A simple, free software magical ORM.",
-    "version": "0.2.0",
+    "version": "0.2.1-dev1",
     "keywords": [
 	"free software",
 	"magic",
@@ -19,7 +19,7 @@
 	"email": "broggi_t@epitech.eu",
 	"url": "http://broggit.me"
     },
-    "license": "GPL-2.0",
+    "license": "GPL-3.0",
     "dependencies": {
 	"lodash": "~2.4.1",
 	"mariasql": "~0.1.21"
@@ -28,5 +28,6 @@
     "os": [
 	"linux"
     ],
+    "main": "lib/index.js",
     "readme": "README.md"
 }
