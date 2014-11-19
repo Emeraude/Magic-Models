@@ -1,7 +1,7 @@
 {
     "name": "magic-models",
     "description": "A simple, free software magical ORM.",
-    "version": "0.2.1-dev1",
+    "version": "0.2.1-dev2",
     "keywords": [
 	"free software",
 	"magic",
@@ -28,6 +28,5 @@
     "os": [
 	"linux"
     ],
-    "main": "lib/index.js",
-    "readme": "README.md"
+    "main": "lib/index.js"
 }
