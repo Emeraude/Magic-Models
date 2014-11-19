@@ -1,10 +1,7 @@
 var _ = require('lodash');
 
 module.exports.escapeValue = function(orm, value) {
-    if (typeof(value) == 'string')
-	return '"' + orm.client.escape(value) + '"';
-    else
-	return '"' + value + '"';
+    return '"' + typeof(value) == 'string' ? orm.client.escape(value) : value + '"';
 }
 
 module.exports.validate = function(orm, model, data) {
@@ -19,7 +16,8 @@ module.exports.validate = function(orm, model, data) {
 		    }
 		    else {
 			if (!orm.validate[rule](data[fieldName], config, data))
-			    errors.push('Rule "' + rule + '" for field `' + fieldName + '` has not been successfully validated.');}
+			    errors.push('Rule "' + rule + '" for field `' + fieldName + '` has not been successfully validated.');
+		    }
 		}
 		else {
 		    if (config instanceof Function) {
