@@ -3,4 +3,5 @@
 .\#*
 test.js
 node_modules
+models
 db.config.json
