@@ -1,7 +1,7 @@
 {
     "name": "magic-models",
     "description": "A simple, free software magical ORM.",
-    "version": "0.2.3-dev1",
+    "version": "0.2.4-dev1",
     "keywords": [
 	"free software",
 	"magic",
@@ -22,7 +22,8 @@
     "license": "GPL-3.0",
     "dependencies": {
 	"lodash": "~2.4.1",
-	"mariasql": "~0.1.21"
+	"mariasql": "~0.1.21",
+	"uvrun": "~0.1.2"
     },
     "homepage": "https://gitlab.com/Emeraude/magic-models",
     "os": [
