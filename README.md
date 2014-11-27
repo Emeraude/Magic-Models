@@ -8,7 +8,7 @@ For the moment, it only works with MariaDB.
 	npm install --python=python2
 
 ## Usage
-### Connexion
+### Connection
 
 ```javascript
 var db = require('magic-models')({
