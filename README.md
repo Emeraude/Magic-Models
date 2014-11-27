@@ -145,6 +145,10 @@ isUnique: true
 len: [4, 32]
 minLen: 4
 maxLen: 32
+between: [5, 10]
+min: 5
+max: 10
+isUrl: https://npmjs.org
 ```
 
 ## Models methods

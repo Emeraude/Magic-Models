@@ -1,7 +1,7 @@
 {
     "name": "magic-models",
     "description": "A simple, free software magical ORM.",
-    "version": "0.4.3",
+    "version": "0.4.4",
     "keywords": [
 	"free software",
 	"magic",
