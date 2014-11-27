@@ -148,7 +148,7 @@ maxLen: 32
 between: [5, 10]
 min: 5
 max: 10
-isUrl: https://npmjs.org
+isUrl: "https://npmjs.org"
 ```
 
 ## Models methods
