@@ -46,7 +46,7 @@ var queryResult = db.queryAsync(query);
 ## Defining Models
 
 ```javascript
-db.define('Table', {
+db.define('Users', {
 	login: {
 		type: 'varchar',
 		length: 32,
@@ -74,7 +74,7 @@ In both of this two cases, you need to define your models in this way:
 
 ```javascript
 module.exports = function(db) {
-	db.define('Table', {
+	db.define('Users', {
 		login: {
 			type: 'varchar',
 			length: 32,
@@ -132,7 +132,7 @@ validate: {
 }
 ```
 
-Not that you can mix types 4 and 5 validations rules.  
+Note that you can mix types 4 and 5 validations rules.  
 For the moments, the following rules are builtin:
 
 ```javascript
@@ -149,7 +149,7 @@ maxLen: 32
 
 ## Models methods
 
-Once you have defined your model, the following methods will be available:
+Once you have defined your model, the following methods will be available:  
 Note that all of this methods are calling the db.query method. So, the callbacks of this methods are given to the db.query method and the arguments you will receive are the same.
 
 ```
