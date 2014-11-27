@@ -31,8 +31,8 @@ You can make raw queries easily, with the following:
 ```javascript
 db.query(query, function(errors, rows, infos) {
 	// errors is an array of strings, or null
-	// rows is an array of rows, or undefined
-	// infos is an array of informations, as the affected rows for example, or undefined
+	// rows is an array of rows, or undefined if an error occured
+	// infos is an array of informations, as the affected rows and the query executed, or undefined if an error occured
 });
 ```
 
@@ -176,10 +176,12 @@ db.models.Users.find(options, function(errors, rows, infos) {
 });
 db.models.Users.count(options, function(errors, rows, infos) {
 	// this method is the same as .all, but rows will coutain the number of rows matching
-	// it is like calling .all with a count: true option
+	// rows will be an integer or an array of integers
+	// it you don't want to have this rows format, you can call .all with a count: true option
 });
 db.models.Users.describe(function(errors, rows, infos) {
 	// getting the description of the table in the database
+	// rows will be an object with the field name as key
 });
 db.models.Users.create({
 	login: 'root',
