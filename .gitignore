@@ -5,3 +5,4 @@ test.js
 node_modules
 models
 db.config.json
+npm-debug.log
