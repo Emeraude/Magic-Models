@@ -1,6 +1,7 @@
 # Magic Models
 
-A simple, free software magical node.js ORM.
+A simple, free software magical node.js ORM.  
+For the moment, it only works with MariaDB.
 
 ## Installation
 
@@ -68,6 +69,23 @@ A list of directories is also possible:
 db.modelsDir([require('path').join(__dirname, './models'),
 			  require('path').join(__dirname, './moreModels')])
 ```
+
+In both of this two cases, you need to define your models in this way:
+
+```javascript
+module.exports = function(db) {
+	db.define('Table', {
+		login: {
+			type: 'varchar',
+			length: 32,
+			validate: {
+				isUnique: true
+			}
+		}
+	});
+}
+```
+
 
 ### Models validation rules
 
