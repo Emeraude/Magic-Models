@@ -42,7 +42,7 @@ var queryResult = db.queryAsync(query);
 // queryResult will be an object containing the errors, the rows and the infos
 ```
 
-### Defining Models
+## Defining Models
 
 ```javascript
 db.define('Table', {
@@ -67,6 +67,74 @@ A list of directories is also possible:
 ```javascript
 db.modelsDir([require('path').join(__dirname, './models'),
 			  require('path').join(__dirname, './moreModels')])
+```
+
+### Models validation rules
+
+There is several ways to define validations rules:
+
+```javascript
+// type 1: custom error message with builtin rule
+validate: {
+	is: {
+		val: regExp,
+		msg: customMessage
+	}
+}
+// type 2: default error message with builtin rule
+validate: {
+	is: regExp
+}
+// type 3: default error message with custom rule
+validate: {
+	custom: function(args) {
+		// the validation fail if return null
+	},
+}
+// type 4: custom error message with several builtin rules
+validate: {
+	custom: {
+		is: regExp,
+		not: regExp,
+		msg: customMessage
+	}
+}
+// type 5: custom error message with one or several custom rules
+validate: {
+	custom: {
+		first: function(args) {
+			;
+		},
+		second: function(args) {
+			;
+		},
+		msg: customMessage
+	}
+}
+```
+
+Not that you can mix types 4 and 5 validations rules.  
+For the moments, the following rules are builtin:
+
+```javascript
+is: /^[a-z]*$/i // also accepts a string
+not: /^[0-9]*$/ // also accepts a string
+required: true
+isIn: ["foo", "bar"]
+notIn: ["toto", "titi"]
+isUnique: true
+len: [4, 32]
+minLen: 4
+maxLen: 32
+```
+
+### Models methods
+
+```
+ _____ _____ ____  _____
+|_   _|     |    \|     |
+  | | |  |  |  |  |  |  |
+  |_| |_____|____/|_____|
 ```
 
 ### Author
