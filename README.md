@@ -27,16 +27,20 @@ db.on('loaded', function() {
 
 You can make raw queries easily, with the following:
 
-	db.query(query, function(errors, rows, infos) {
-		// errors is an array of strings, or null
-		// rows is an array of rows, or undefined
-		// infos is an array of informations, as the affected rows for example, or undefined
-	});
+```javascript
+db.query(query, function(errors, rows, infos) {
+	// errors is an array of strings, or null
+	// rows is an array of rows, or undefined
+	// infos is an array of informations, as the affected rows for example, or undefined
+});
+```
 
 You can also do the same asynchronously:
 
-	var queryResult = db.queryAsync(query);
-	// queryResult will be an object containing the errors, the rows and the infos
+```javascript
+var queryResult = db.queryAsync(query);
+// queryResult will be an object containing the errors, the rows and the infos
+```
 
 ### Defining Models
 
@@ -54,12 +58,16 @@ db.define('Table', {
 
 It is also possible to specify the models directory with the following:
 
-	db.modelsDir(require('path').join(__dirname, './models'))
+```javascript
+db.modelsDir(require('path').join(__dirname, './models'))
+```
 
 A list of directories is also possible:
 
-	db.modelsDir([require('path').join(__dirname, './models'),
-				  require('path').join(__dirname, './moreModels')])
+```javascript
+db.modelsDir([require('path').join(__dirname, './models'),
+			  require('path').join(__dirname, './moreModels')])
+```
 
 ### Author
 
