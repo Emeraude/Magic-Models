@@ -86,6 +86,7 @@ module.exports = function(db) {
 }
 ```
 
+The models you define are in `db.models`
 
 ### Models validation rules
 
@@ -146,7 +147,65 @@ minLen: 4
 maxLen: 32
 ```
 
-### Models methods
+## Models methods
+
+Once you have defined your model, the following methods will be available:
+Note that all of this methods are calling the db.query method. So, the callbacks of this methods are given to the db.query method and the arguments you will receive are the same.
+
+```
+javascript
+db.define('Users', fields);
+db.models.users.all({
+	fields: ['login', 'password'],
+	where: {
+		id: {
+			'gt': 5
+		}
+	}
+}, function(errors, rows, infos) {
+	// getting all the rows matching, with only the fields you specified
+	// if you no specify fields, you will get all of the fields defined in the model
+});
+db.models.Users.find(options, function(errors, rows, infos) {
+	// this method is the same as .all, but you will get only one row.
+	// it is like calling .all with a limit: 1 option
+});
+db.models.Users.count(options, function(errors, rows, infos) {
+	// this method is the same as .all, but rows will coutain the number of rows matching
+	// it is like calling .all with a count: true option
+});
+db.models.Users.describe(function(errors, rows, infos) {
+	// getting the description of the table in the database
+});
+db.models.Users.create({
+	login: 'root',
+	password: 'toor'
+}, function(errors, rows, infos) {
+	// check for the validity of the values
+	// create an user in the database with the login 'root' and the password 'toor'
+	// rows will be empty
+});
+db.models.Users.update({
+	values: {
+		login: 'admin'
+	},
+	where: {
+		id: 1
+	}
+}, function(errors, rows, infos) {
+	// check for the validity of the values
+	// change the login of the users who have the id '1'
+	// rows will be empty
+});
+db.models.Users.delete({
+	id: 2
+}, function(errors, rows, infos) {
+	// remove the user who have the id '2'
+	// rows will be empty
+}
+```
+
+### Where
 
 ```
  _____ _____ ____  _____
