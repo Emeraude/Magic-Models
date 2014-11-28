@@ -5,7 +5,9 @@ For the moment, it only works with MariaDB.
 
 ## Installation
 
-	npm install --python=python2
+```bash
+npm install --python=python2
+```
 
 ## Usage
 ### Connection
@@ -46,12 +48,17 @@ var queryResult = db.queryAsync(query);
 ## Defining Models
 
 ```javascript
-db.define('Users', {
+db.define('User', {
 	login: {
 		type: 'varchar',
 		length: 32,
 		validate: {
 			isUnique: true
+		},
+		mail: {
+			type: 'varchar',
+			length: 255,
+			default: 'NULL'
 		}
 	}
 })
@@ -74,13 +81,18 @@ In both of this two cases, you need to define your models in this way:
 
 ```javascript
 module.exports = function(db) {
-	db.define('Users', {
+	db.define('User', {
 		login: {
 			type: 'varchar',
 			length: 32,
 			validate: {
 				isUnique: true
 			}
+		},
+		mail: {
+			type: 'varchar',
+			length: 255,
+			default: 'NULL'
 		}
 	});
 }
@@ -157,8 +169,8 @@ Once you have defined your model, the following methods will be available:
 Note that all of this methods are calling the db.query method. So, the callbacks of this methods are given to the db.query method and the arguments you will receive are the same.
 
 ```javascript
-db.define('Users', fields);
-db.models.users.all({
+db.define('User', fields);
+db.models.User.all({
 	fields: ['login', 'password'],
 	where: {
 		id: {
@@ -169,21 +181,21 @@ db.models.users.all({
 	// getting all the rows matching, with only the fields you specified
 	// if you no specify fields, you will get all of the fields defined in the model
 });
-db.models.Users.find(options, function(errors, rows, infos) {
+db.models.User.find(options, function(errors, rows, infos) {
 	// this method is the same as .all, but you will get only one row.
 	// rows will be an object containing the row
 	// it you don't want to have this rows format, you can call .all with a limit: 1 option
 });
-db.models.Users.count(options, function(errors, rows, infos) {
+db.models.User.count(options, function(errors, rows, infos) {
 	// this method is the same as .all, but rows will coutain the number of rows matching
 	// rows will be an integer or an array of integers
 	// it you don't want to have this rows format, you can call .all with a count: true option
 });
-db.models.Users.describe(function(errors, rows, infos) {
+db.models.User.describe(function(errors, rows, infos) {
 	// getting the description of the table in the database
 	// rows will be an object with the field name as key
 });
-db.models.Users.create({
+db.models.User.create({
 	login: 'root',
 	password: 'toor'
 }, function(errors, rows, infos) {
@@ -191,7 +203,7 @@ db.models.Users.create({
 	// create an user in the database with the login 'root' and the password 'toor'
 	// rows will be empty
 });
-db.models.Users.update({
+db.models.User.update({
 	values: {
 		login: 'admin'
 	},
@@ -203,7 +215,7 @@ db.models.Users.update({
 	// change the login of the users who have the id '1'
 	// rows will be empty
 });
-db.models.Users.delete({
+db.models.User.delete({
 	id: 2
 }, function(errors, rows, infos) {
 	// remove the user who have the id '2'
