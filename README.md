@@ -156,8 +156,7 @@ isUrl: "https://npmjs.org"
 Once you have defined your model, the following methods will be available:  
 Note that all of this methods are calling the db.query method. So, the callbacks of this methods are given to the db.query method and the arguments you will receive are the same.
 
-```
-javascript
+```javascript
 db.define('Users', fields);
 db.models.users.all({
 	fields: ['login', 'password'],
@@ -172,7 +171,8 @@ db.models.users.all({
 });
 db.models.Users.find(options, function(errors, rows, infos) {
 	// this method is the same as .all, but you will get only one row.
-	// it is like calling .all with a limit: 1 option
+	// rows will be an object containing the row
+	// it you don't want to have this rows format, you can call .all with a limit: 1 option
 });
 db.models.Users.count(options, function(errors, rows, infos) {
 	// this method is the same as .all, but rows will coutain the number of rows matching
@@ -187,7 +187,7 @@ db.models.Users.create({
 	login: 'root',
 	password: 'toor'
 }, function(errors, rows, infos) {
-	// check for the validity of the values
+	// check for the validity of the values, but not the default values set in the model definition
 	// create an user in the database with the login 'root' and the password 'toor'
 	// rows will be empty
 });
@@ -219,6 +219,11 @@ db.models.Users.delete({
   | | |  |  |  |  |  |  |
   |_| |_____|____/|_____|
 ```
+
+## Contributing
+
+If you think a feature is missing, you can open an issue, or try to make it and then do a pull request.  
+If you find a bug, open an issue too. You can also fix it and do a pull request.
 
 ### Author
 
