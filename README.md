@@ -49,17 +49,21 @@ var queryResult = db.queryAsync(query);
 
 ```javascript
 db.define('User', {
+	id: {
+		type: 'int',
+		key: 'primary'
+	},
 	login: {
 		type: 'varchar',
 		length: 32,
 		validate: {
 			isUnique: true
-		},
-		mail: {
-			type: 'varchar',
-			length: 255,
-			default: 'NULL'
 		}
+	},
+	mail: {
+		type: 'varchar',
+		length: 255,
+		default: 'NULL'
 	}
 })
 ```
@@ -82,6 +86,10 @@ In both of this two cases, you need to define your models in this way:
 ```javascript
 module.exports = function(db) {
 	db.define('User', {
+		id: {
+			type: 'int',
+			key: 'primary'
+		},
 		login: {
 			type: 'varchar',
 			length: 32,
