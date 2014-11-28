@@ -201,7 +201,7 @@ db.models.User.create({
 }, function(errors, rows, infos) {
 	// check for the validity of the values, but not the default values set in the model definition
 	// create an user in the database with the login 'root' and the password 'toor'
-	// rows will be empty
+	// rows will be an object containing all the inserted values
 });
 db.models.User.update({
 	values: {
