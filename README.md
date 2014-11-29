@@ -34,7 +34,8 @@ You can make raw queries easily, with the following:
 db.query(query, function(errors, rows, infos) {
 	// errors is an array of strings, or null
 	// rows is an array of rows, or undefined if an error occured
-	// infos is an array of informations, as the affected rows and the query executed, or undefined if an error occured
+	// infos is an array containing the following informations:
+	// insertId, affectedRows, numRows, query
 });
 ```
 
@@ -51,11 +52,12 @@ var queryResult = db.queryAsync(query);
 db.define('User', {
 	id: {
 		type: 'int',
-		key: 'primary'
+		key: 'primary' // the primary key field is saved in db.models.User.primaryKey ; if no primary key is specified, this value will be null.
 	},
 	login: {
 		type: 'varchar',
 		length: 32,
+		key: 'unique',
 		validate: {
 			isUnique: true
 		}
@@ -93,6 +95,7 @@ module.exports = function(db) {
 		login: {
 			type: 'varchar',
 			length: 32,
+			key: 'unique',
 			validate: {
 				isUnique: true
 			}
@@ -199,6 +202,24 @@ max: 10
 isUrl: "https://npmjs.org"
 ```
 
+In your custom validations rules, args will be this object:
+
+```javascript
+{
+	data, // an object containing all the values setted
+	model, // the model
+	checkField: {
+		name: 'login', // the name of the field you have to check
+		val: 'admin' // the value of the field you have to check
+	},
+	rule: {
+		name: 'custom', // the name of the rule
+		val: [Function] // the value of the rule; for a custom rule, it is the validation function
+	},
+	type: 3 // the type of validation (3 or 5 for custom rules)
+}
+```
+
 ## Models methods
 
 Once you have defined your model, the following methods will be available:  
@@ -212,10 +233,18 @@ db.models.User.all({
 		id: {
 			'gt': 5
 		}
-	}
+	},
+	order: {
+		id: 'DESC'
+	},
+	group: 'login', // you can also give on object if you want to group several fields
+	limit: 20,
+	offset: 10, // it will work only if a limit is defined too
+	count: true // will only return the number of rows
 }, function(errors, rows, infos) {
 	// getting all the rows matching, with only the fields you specified
 	// if you no specify fields, you will get all of the fields defined in the model
+	// note that the order, group, limit, offset and count clauses only work for the method .find, .count and .all
 });
 db.models.User.find(options, function(errors, rows, infos) {
 	// this method is the same as .all, but you will get only one row.
@@ -259,19 +288,73 @@ db.models.User.delete({
 }
 ```
 
+All of this functions have an equivalent who works asynchronously:
+
+```javascript
+db.models.User.allAsync(options);
+db.models.User.findAsync(options);
+db.models.User.countAsync(options);
+db.models.User.describeAsync();
+db.models.User.createAsync(options);
+db.models.User.updateAsync(options);
+db.models.User.deleteAsync(options);
+```
+
 ### Where
 
+You can combine a lot of options in the where clause:
+
+```javascript
+where: {
+	id: 5, // WHERE `id` = "5"
+	id: [1, 5], // WHERE `id` IN("1", "5")
+	id: {
+		bewteen: [1, 5], // WHERE `id` BETWEEN "1" AND "5"
+		gt: "5", // WHERE `id` > "5"
+		gte: "5", // WHERE `id` >= "5"
+		lt: "5", // WHERE `id` < "5"
+		lte: "5", // WHERE `id` <= "5"
+		ne: "5", // WHERE `id` != "5"
+		eq: "5", // WHERE `id` = "5"
+		not: "5" // WHERE `id` >= ("5")
+	},
+	login: {
+		like: "%admin%", // WHERE `login` LIKE "%admin%"
+		match: /[a-z]*/i // WHERE `login` REGEXP "[a-z]*"
+	}
+	or: [ // WHERE ((`id` = "5") OR (`login` = "admin"))
+		{id: "5"},
+		{login: "admin"}
+	]
+}
 ```
- _____ _____ ____  _____
-|_   _|     |    \|     |
-  | | |  |  |  |  |  |  |
-  |_| |_____|____/|_____|
+
+You can combine all of this, including **AND** and **OR**, priorities will be respected.
+
+```javascript
+where: {
+	or: [
+		{type: 'dog', color: 'white', size: 'large'},
+		{type: 'cat', or: [
+							{size: 'small'},
+							{color: 'black'}
+						]
+		}
+	]
+}
+```
+
+It'll generate the following request:
+
+```sql
+WHERE ((`type` = "dog" AND `color` = "white" AND `size` = "large") OR (`type` = "cat" AND ((`size` = "small") OR (`color` = "black"))))'
 ```
 
 ## Contributing
 
 If you think a feature is missing, you can open an issue, or try to make it and then do a pull request.  
-If you find a bug, open an issue too. You can also fix it and do a pull request.
+If you find a bug, open an issue too. You can also fix it and do a pull request.  
+If you think this doc is incomplete, you can improve it the same way.
 
 ### Author
 
