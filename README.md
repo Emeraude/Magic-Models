@@ -125,6 +125,17 @@ defaultModified: "bar" // default value will be "bar" at the update
 defaultBoth: "foo-bar" // default value will be "foo-bar" at the creation and at the update
 ```
 
+By default, the orm will look for a `createdAt` and a `modifiedAt` field.  
+If they don't exist, the `.create()` and the `.update()` methods will not work.  
+You can change the fields looking for or avoid this behaviour with the third argument of `db.define`:
+
+```javascript
+db.define('User', fields, {
+	createdAt: 'date' // the field containing the creation date will be 'date'
+	modifiedAt: false // the orm will not try to update this field when doing an update
+});
+```
+
 ### Models validation rules
 
 There is several ways to define validations rules:
@@ -238,13 +249,13 @@ db.models.User.update({
 }, function(errors, rows, infos) {
 	// check for the validity of the values
 	// change the login of the users who have the id '1'
-	// rows will be empty
+	// rows will be an empty array
 });
 db.models.User.delete({
 	id: 2
 }, function(errors, rows, infos) {
 	// remove the user who have the id '2'
-	// rows will be empty
+	// rows will be an empty array
 }
 ```
 
