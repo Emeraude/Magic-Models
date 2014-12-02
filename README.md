@@ -70,6 +70,15 @@ db.define('User', {
 })
 ```
 
+Note that the name of the model is singular and the ORM will look for a table with the plural name.  
+To avoid this behaviour, you can specify a custom table name with the third argument of **db.define**:
+
+```javascript
+db.define('User', fields, {
+	tableName: 'Members'
+});
+```
+
 It is also possible to specify the models directory with the following:
 
 ```javascript
