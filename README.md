@@ -71,7 +71,7 @@ db.define('User', {
 ```
 
 Note that the name of the model is singular and the ORM will look for a table with the plural name.  
-To avoid this behaviour, you can specify a custom table name with the third argument of **db.define**:
+To avoid this behaviour, you can specify a custom table name with the third argument of `db.define`:
 
 ```javascript
 db.define('User', fields, {
@@ -246,7 +246,7 @@ db.models.User.all({
 	order: {
 		id: 'DESC'
 	},
-	group: 'login', // you can also give on object if you want to group several fields
+	group: 'login', // you can also give an array if you want to group several fields
 	limit: 20,
 	offset: 10, // it will work only if a limit is defined too
 	count: true // will only return the number of rows
@@ -358,6 +358,86 @@ It'll generate the following request:
 ```sql
 WHERE ((`type` = "dog" AND `color` = "white" AND `size` = "large") OR (`type` = "cat" AND ((`size` = "small") OR (`color` = "black"))))'
 ```
+
+## Hooks
+
+You can add functions that will be called before and after each method.  
+The following hooks are supported :
+
+```javascript
+beforeFind(datas, callback);
+afterFind(errors, rows, infos, callback);
+beforeValidate(datas, callback);
+afterValidate(datas, callback);
+beforeCreate(datas, callback);
+afterCreate(errors, rows, infos, callback);
+beforeSave(datas, callback);
+afterSave(errors, rows, infos, callback);
+beforeUpdate(datas, callback);
+afterUpdate(errors, rows, infos, callback);
+beforeDelete(datas, callback);
+afterDelete(errors, rows, infos, callback);
+```
+
+### Order of operations
+#### Create
+
+```javascript
+// beforeValidate
+validate
+// afterValidate
+// beforeCreate
+// beforeSave
+create
+// afterSave
+// afterCreate
+```
+
+#### Update
+
+```javascript
+// beforeValidate
+validate
+// afterValidate
+// beforeUpdate
+// beforeSave
+update
+// afterSave
+// afterUpdate
+```
+
+#### Delete
+
+```javascript
+// beforeDelete
+delete
+// afterDelete
+```
+
+#### Find
+
+```javascript
+// beforeFind
+find
+// afterFind
+```
+
+### Declaring hooks
+
+Hooks have to be declared in the third parameter of `db.define`.
+
+```javascript
+db.define('User', fields, {
+	beforeValidate: function(datas, callback) {
+		callback(datas);
+	},
+	afterCreate: function(errors, rows, infos, callback) {
+		callback(errors, rows, infos);
+	}
+});
+```
+
+Note that if you don't call the callback, the next operations will not be executed.
 
 ## Contributing
 
