@@ -30,8 +30,6 @@
 	"uvrun": "~0.1.2"
     },
     "homepage": "https://gitlab.com/Emeraude/magic-models",
-    "os": [
-	"linux"
-    ],
+    "os": "linux",
     "main": "lib/index.js"
 }
