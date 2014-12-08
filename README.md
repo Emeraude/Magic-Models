@@ -437,7 +437,8 @@ db.define('User', fields, {
 });
 ```
 
-Note that if you don't call the callback, the next operations will not be executed.
+Note that if you don't call the callback, the next operations will not be executed.  
+In the case of an **update**, the param `datas` will only contain the new values, not the where informations.
 
 ## Contributing
 
