@@ -208,7 +208,13 @@ maxLen: 32
 between: [5, 10]
 min: 5
 max: 10
+isAfter: "1474-11-13" // also accepts a date object
+isBefore: "1605-11-05" // also accepts a date object
+isBetween: [new Date(1474, 10, 13), new Date(1605, 10, 5))] // also accepts strings
 isUrl: "https://npmjs.org"
+isIP: "127.0.0.1" // matchs IPv4 and IPv6
+isIPv4: "127.0.0.1"
+isIPv6: "2001:db8:0:85a3::ac1f:8001"
 ```
 
 In your custom validations rules, args will be this object:
