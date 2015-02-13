@@ -118,6 +118,44 @@ module.exports = function(db) {
 }
 ```
 
+You can define multiple times the same model, it will be updated :
+
+```javascript
+db.define('User', {
+	id: {
+		type: 'int',
+		key: 'primary'
+	}
+});
+db.define('User', { // The model 'User' will contain the two fields 'id' and 'login'
+	login: {
+		type: 'varchar',
+		length: 32,
+		key: 'unique',
+		validate: {
+			isUnique: true
+		}
+	}
+});
+```
+
+You can avoid this behaviour by giving the `erase` option to the third argument of `db.define` :
+
+```javascript
+db.define('User', { // The model 'User' will only contain the field 'login'
+	login: {
+		type: 'varchar',
+		length: 32,
+		key: 'unique',
+		validate: {
+			isUnique: true
+		}
+	}, {
+		erase: true
+	}
+});
+```
+
 The models you define are in `db.models`
 
 ### Default values
