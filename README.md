@@ -363,20 +363,20 @@ where: {
 	id: [1, 5], // WHERE `id` IN("1", "5")
 	id: {
 		bewteen: [1, 5], // WHERE `id` BETWEEN "1" AND "5"
-		gt: "5", // WHERE `id` > "5"
-		gte: "5", // WHERE `id` >= "5"
-		lt: "5", // WHERE `id` < "5"
-		lte: "5", // WHERE `id` <= "5"
-		ne: "5", // WHERE `id` != "5"
-		eq: "5", // WHERE `id` = "5"
-		not: "5" // WHERE `id` >= ("5")
+		gt: 5, // WHERE `id` > "5"
+		gte: 5, // WHERE `id` >= "5"
+		lt: 5, // WHERE `id` < "5"
+		lte: 5, // WHERE `id` <= "5"
+		ne: 5, // WHERE `id` != "5"
+		eq: 5, // WHERE `id` = "5"
+		not: 5 // WHERE `id` NOT "5"
 	},
 	login: {
 		like: "%admin%", // WHERE `login` LIKE "%admin%"
 		match: /[a-z]*/i // WHERE `login` REGEXP "[a-z]*"
 	}
 	or: [ // WHERE ((`id` = "5") OR (`login` = "admin"))
-		{id: "5"},
+		{id: 5},
 		{login: "admin"}
 	]
 }
