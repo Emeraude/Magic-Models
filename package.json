@@ -31,5 +31,8 @@
     },
     "homepage": "https://gitlab.com/Emeraude/magic-models",
     "os": "linux",
-    "main": "lib/index.js"
+    "main": "lib/index.js",
+    "scripts": {
+	"test": "nodeunit tests/unit.js"
+    }
 }
