@@ -3,15 +3,6 @@
 A simple, free software magical node.js ORM.  
 For the moment, it only works with MariaDB.
 
-## Important (node >= 0.12)
-
-If you are using node.js >= 0.12, features about asynchronous query will not work and make **Magic Models** not work. Please git-checkout on branche *all-sync* for more informations.
-
-```bash
-git checkout all-sync
-head -n 25 README.md | tail -n 20
-```
-
 ## Installation
 
 ```bash
