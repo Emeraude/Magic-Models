@@ -33,6 +33,6 @@
     "os": "linux",
     "main": "lib/index.js",
     "scripts": {
-	"test": "nodeunit tests/unit.js"
+	"test": "mysql -u root --password=toor < tests/db.sql; nodeunit tests/unit.js"
     }
 }

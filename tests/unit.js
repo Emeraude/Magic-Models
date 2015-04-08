@@ -1,17 +1,21 @@
+var _ = require('lodash');
+
 exports.connect = function(test) {
     db = require('../lib')(require('../db.config.json'));
     db.on('loaded', function() {
 	test.done();
     }).on('error', function(e) {
 	test.ok(false, 'Unable to connect the database : ' + e);
+	test.done();
     });
 }
 
 exports.query = {
     showTables: function(test) {
 	db.query('SHOW TABLES', function(e, r, i) {
-	    test.ok(r[0], 'No table found in the database');
 	    test.equal(e, undefined, e);
+	    test.deepEqual({insertId: 0, affectedRows: 0, numRows: 3, query: 'SHOW TABLES'}, i, 'Informations object is incorrect');
+	    test.ok(r[0], 'No table found in the database');
 	    test.done();
 	});
     },
@@ -66,7 +70,9 @@ exports.defineModel = {
 	test.done();
     },
     "defineMultiple (directory)": function(test) {
-	test.equal(db.models.length, 3, 'Wrong number of models defined');
+	db.modelsDir(require('path').join(__dirname, './models'));
+	test.equal(_.size(db.models), 3, 'Wrong number of models defined');
+	console.log(db.models);
 	test.done();
     }
 }
