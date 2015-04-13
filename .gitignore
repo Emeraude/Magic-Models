@@ -1,8 +1,8 @@
 *~
 \#*\#
 .\#*
-test.js
 node_modules
 models
+!tests/models
 db.config.json
 npm-debug.log
