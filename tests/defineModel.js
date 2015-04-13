@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-exports.defineModel = {
+module.exports = {
     defineOne: function(test) {
 	db.define('User', {
 	    id: {

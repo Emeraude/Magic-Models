@@ -1,4 +1,4 @@
-exports.query = {
+module.exports = {
     showTables: function(test) {
 	db.query('SHOW TABLES', function(e, r, i) {
 	    test.equal(e, undefined, e);
