@@ -26,6 +26,12 @@ db.on('loaded', function() {
 });
 ```
 
+Once you are done, you can simply quit magic-models with the following:
+
+```javascript
+db.exit(); // note that if you don't do it, the program may not exit
+```
+
 ### Executing raw queries
 
 You can make raw queries easily, with the following:
