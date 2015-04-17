@@ -62,7 +62,7 @@ exports.defineModels = {
 	},
 
 	message: function(test) {
-	    test.deepEqual(db.models.Message.fields, {id: {fieldName: 'id', type: 'int', key: 'primary', default: {created: null, modified: null}}, userId: {fieldName: 'userId', type: 'int', default: {created: null, modified: null}}, title: {fieldName: 'title', type: 'varchar', length: 255, validate: {len: [8, 255]}, default: {created: null, modified: null}}, content: {fieldName: 'content', type: 'text', validate: {minLen: 50}, default: {created: null, modified: null}}}, 'Model `Message` not defined correctly');
+	    test.deepEqual(db.models.Message.fields, {id: {fieldName: 'id', type: 'int', key: 'primary', default: {created: null, modified: null}}, to: {fieldName: 'to', type: 'int', default: {created: null, modified: null}}, from: {fieldName: 'from', type: 'int', default: {created: null, modified: null}}, title: {fieldName: 'title', type: 'varchar', length: 255, validate: {len: [8, 255]}, default: {created: null, modified: null}}, content: {fieldName: 'content', type: 'text', validate: {minLen: 50}, default: {created: null, modified: null}}}, 'Model `Message` not defined correctly');
 	    test.equal(db.models.Message.table, 'Messages', 'Wrong table name for model `Message`');
 	    test.equal(db.models.Message.primaryKey, 'id', 'Wrong primary key for model `Message`');
 	    test.equal(db.models.Message.createdAt, 'createdAt', 'Wrong createdAt field for model `Message`');

@@ -4,7 +4,10 @@ module.exports = function(db) {
 	    type: 'int',
 	    key: 'primary'
 	},
-	userId: {
+	to: {
+	    type: 'int'
+	},
+	from: {
 	    type: 'int'
 	},
 	title: {
