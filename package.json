@@ -33,6 +33,6 @@
     "os": "linux",
     "main": "lib/index.js",
     "scripts": {
-	"test": "mysql -u root --password=toor < tests/db.sql && cd tests; nodeunit connect.js query.js defineModel.js create.js"
+	"test": "./tests/run.sh"
     }
 }
