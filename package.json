@@ -24,6 +24,7 @@
     },
     "license": "GPL-3.0",
     "dependencies": {
+	"deprecate-me": "~1.0.0",
 	"lodash": "~2.4.1",
 	"mariasql": "~0.1.22",
 	"plural": "~0.1.6",

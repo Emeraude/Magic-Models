@@ -52,6 +52,8 @@ var queryResult = db.queryAsync(query);
 // queryResult will be an object containing the errors, the rows and the infos
 ```
 
+Note that this one is **deprecated** since *0.7.0* and will be removed in *1.0.0*
+
 ## Defining Models
 
 ```javascript
@@ -359,6 +361,8 @@ db.models.User.updateAsync(options);
 db.models.User.deleteAsync(options);
 ```
 
+Note that all of this functions are **deprecated** since *0.7.0* and will be removed in *1.0.0*
+
 ### Where
 
 You can combine a lot of options in the where clause:
@@ -487,7 +491,7 @@ db.define('User', fields, {
 });
 ```
 
-Note that if you don't call the callback, the next operations will not be executed.  
+Note that if you don't call the callback, it will results to an undefined behaviour.  
 In the case of an **update**, the param `datas` will only contain the new values, not the where informations.
 
 ## Contributing
