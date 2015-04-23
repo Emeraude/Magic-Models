@@ -276,8 +276,7 @@ In your custom validations rules, args will be this object:
 	rule: {
 		name: 'custom', // the name of the rule
 		val: [Function] // the value of the rule; for a custom rule, it is the validation function
-	},
-	type: 3 // the type of validation (3 or 5 for custom rules)
+	}
 }
 ```
 

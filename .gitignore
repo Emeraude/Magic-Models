@@ -2,7 +2,5 @@
 \#*\#
 .\#*
 node_modules
-models
-!tests/models
 tests/full.js
 npm-debug.log

@@ -1,7 +1,7 @@
 {
     "name": "magic-models",
     "description": "A simple, free software magical ORM.",
-    "version": "0.6.9",
+    "version": "0.7.0",
     "keywords": [
 	"async",
 	"free software",
@@ -24,7 +24,8 @@
     },
     "license": "GPL-3.0",
     "dependencies": {
-	"deprecate-me": "~1.0.0",
+	"deprecate-me": "~1.1.0",
+	"each": "~0.5.0",
 	"lodash": "~2.4.1",
 	"mariasql": "~0.1.22",
 	"plural": "~0.1.6",
