@@ -85,5 +85,13 @@ exports.create = {
 		test.done();
 	    });
 	}
+    },
+
+    nonUnique: function(test) {
+	db.models.User.create({login: 'foobar', password: 'foobar42'}, function(e, r, i) {
+	    test.equal(i, undefined, 'This test should fail');
+	    test.deepEqual(e, {validationErrors: ['Rule "isUnique" for field `login` has not been successfully validated.']}, 'This test should fail');
+	    test.done();
+	});
     }
 }
