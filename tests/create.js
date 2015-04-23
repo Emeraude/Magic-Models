@@ -68,6 +68,15 @@ exports.create = {
 	    });
 	},
 
+	anotherUser: function(test) {
+	    db.models.User.create({login: 'barfoo', password: 'foobar42'}, function(e, r, i) {
+		test.equal(e, undefined, 'An error occured');
+		test.deepEqual(i, {insertId: 2, affectedRows: 1, numRows: 0, query: 'INSERT INTO `Users`(`login`, `password`, `createdAt`, `modifiedAt`) VALUES("barfoo", "foobar42", NOW(), NOW())'}, 'Invalid informations object');
+		test.deepEqual(r, {login: 'barfoo', password: 'foobar42', id: 2}, 'Invalid results object');
+		test.done();
+	    });
+	},
+
 	newMessage: function(test) {
 	    db.models.Message.create({to: 1, from: 1, title: 'First message', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit.'}, function(e, r, i) {
 		test.equal(e, undefined, 'An error occured');
