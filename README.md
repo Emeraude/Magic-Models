@@ -212,8 +212,10 @@ validate: {
 }
 // type 3: default error message with custom rule
 validate: {
-	custom: function(args) {
-		// the validation fail if return null
+	custom: function(args, cb) {
+		cb(true);
+		// the validation fail if you call cb with false
+		// never call the callback more than once, or there will be an undefined behaviour
 	},
 }
 // type 4: custom error message with several builtin rules
@@ -227,10 +229,10 @@ validate: {
 // type 5: custom error message with one or several custom rules
 validate: {
 	custom: {
-		first: function(args) {
+		first: function(args, cb) {
 			;
 		},
-		second: function(args) {
+		second: function(args, cb) {
 			;
 		},
 		msg: customMessage
@@ -244,7 +246,7 @@ For the moments, the following rules are builtin:
 ```javascript
 is: /^[a-z]*$/i // also accepts a string
 not: /^[0-9]*$/ // also accepts a string
-required: true
+required: true // deprecated since 0.7.0 ; it will be removed in 1.0.0
 isIn: ["foo", "bar"]
 notIn: ["toto", "titi"]
 isUnique: true
@@ -267,8 +269,8 @@ In your custom validations rules, args will be this object:
 
 ```javascript
 {
-	data, // an object containing all the values setted
-	model, // the model
+	data: data, // an object containing all the values setted
+	model: model, // the model
 	checkField: {
 		name: 'login', // the name of the field you have to check
 		val: 'admin' // the value of the field you have to check
@@ -276,7 +278,8 @@ In your custom validations rules, args will be this object:
 	rule: {
 		name: 'custom', // the name of the rule
 		val: [Function] // the value of the rule; for a custom rule, it is the validation function
-	}
+		},
+	msg: message // the message that will be send if validation rule fail
 }
 ```
 
