@@ -3,7 +3,7 @@
 cd $(dirname $0)
 
 unit_tests() {
-    cat connect.js query.js defineModel.js create.js end.js > full.js || return 1
+    cat connect.js query.js defineModel.js create.js find.js end.js > full.js || return 1
     nodeunit full.js && rm full.js && return 0
     return 1
 }
