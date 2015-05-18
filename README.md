@@ -353,6 +353,8 @@ db.models.User.delete({
 }
 ```
 
+If you give the callback as the first argument of this functions, it will works well, and the object usually used as first argument will be `{}`.
+
 All of this functions have an equivalent who works asynchronously:
 
 ```javascript

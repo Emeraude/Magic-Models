@@ -1,5 +1,13 @@
 exports.create = {
     badTests: {
+	noObject: function(test) {
+	    db.models.User.create(function(e, r, i) {
+		test.equal(i, undefined, 'This test should fail');
+		test.deepEqual(e, {validationErrors: ['Field `login` is required.', 'Password not strong enough']}, 'This test should fail');
+		test.done();
+	    });
+	},
+
 	EmptyObject: function(test) {
 	    db.models.User.create({}, function(e, r, i) {
 		test.equal(i, undefined, 'This test should fail');
