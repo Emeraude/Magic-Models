@@ -12,10 +12,10 @@ module.exports = function(db) {
 		len: [4, 32],
 		is:  /^[a-z0-9\-_\.]{4,32}$/i,
 		notIn: ['root', 'admin'],
-		required: true,
 		isUnique: true
 	    },
-	    default: "anonymous"
+	    default: "anonymous",
+	    required: true
 	},
 	password: {
 	    type: 'varchar',
@@ -23,10 +23,10 @@ module.exports = function(db) {
 	    validate: {
 		validPassword: {
 		    minLen: 8,
-		    required: true,
 		    msg: 'Password not strong enough'
 		}
-	    }
+	    },
+	    required: 'Password not strong enough'
 	},
 	mail: {
 	    type: 'varchar',

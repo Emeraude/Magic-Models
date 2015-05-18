@@ -68,7 +68,8 @@ db.define('User', {
 		key: 'unique',
 		validate: {
 			isUnique: true
-		}
+		},
+		required: 'Login is mandatory'
 	},
 	mail: {
 		type: 'varchar',
@@ -115,7 +116,8 @@ module.exports = function(db) {
 			key: 'unique',
 			validate: {
 				isUnique: true
-			}
+			},
+			required: 'Login is mandatory'
 		},
 		mail: {
 			type: 'varchar',
