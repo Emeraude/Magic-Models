@@ -63,7 +63,6 @@ exports.find = {
 	    });
 	},
 
-
 	match: function(test) {
 	    db.models.User.find({where: {login: {match: /foo$/}}}, function(e, r, i) {
 		test.equal(e, undefined, 'An error occured');
