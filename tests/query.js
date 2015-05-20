@@ -19,7 +19,7 @@ exports.query = {
     selectFromTable: function(test) {
 	db.query('SELECT * FROM Users', function(e, r, i) {
 	    test.equal(e, undefined, e);
-	    test.equal(r.length, i.numRows);
+	    test.equal(r.length, i.numRows, 'Invalid number of rows');
 	    test.done();
 	});
     },

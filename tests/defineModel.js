@@ -36,6 +36,7 @@ exports.defineModels = {
 	test.deepEqual(db.models.User.fields, {}, 'Model erase failed');
 	test.done();
     },
+
     modelsDir: {
 	generate: function(test) {
 	    db.modelsDir(require('path').join(__dirname, './models'));
