@@ -4,10 +4,20 @@ I decied to rewrite it from scratch. A functionnal version could be found on bra
 A simple, free software magical node.js ORM.  
 For the moment, it only works with MariaDB.
 
-## Installation
+## Connection
 
-```bash
-npm install
+```javascript
+var db = require('magic-models')({
+	host: 'localhost',
+	user: 'root',
+	password: 'toor',
+	db: 'foo'
+});
+db.on('error', function(e) {
+	throw e;
+}).on('close', function(msg) {
+	console.log('Client closed : ' + msg);
+});
 ```
 
 ### Author
