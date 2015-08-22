@@ -20,6 +20,17 @@ db.on('error', function(e) {
 });
 ```
 
+## Executing raw queries
+
+```javascript
+db.query(query, function(errors, rows, infos) {
+	// errors is an array of strings, or undefined
+	// rows is an array of rows, or undefined
+	// infos is an object containing some informations:
+	// insertId, affectedRows, numRows, query, queryTime
+});
+```
+
 ### Author
 
 **Emeraude**
