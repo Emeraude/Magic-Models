@@ -31,6 +31,26 @@ db.query(query, function(errors, rows, infos) {
 });
 ```
 
+## Defining models
+
+Each model name must be in **CamelCase**. Each model will be usable in the `db` object.
+
+```javascript
+db.define('User', {
+	id: {},
+	login: {},
+	mail: {}
+}, { // this third argument is optionnal
+	erase: false, // if true and if the model is already defined, it will erase it. If false, it will be updated it
+	tableName: 'Members', // change the default name of the table in the database. If not specified, the name of the table must be the name of the model pluralized
+	createdAt: null, // this field will not be setted at the insertion
+	modifiedAt: 'editionDate' // the field 'editionDate' will contain
+});
+```
+
+By default the orm will look for the *createdAt* and *modifiedAt* fields, it can be modified in the options, as seen above.  
+Note that the name of the model is singular and the ORM will look for a table with the plural name.
+
 ### Author
 
 **Emeraude**

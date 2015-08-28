@@ -23,6 +23,7 @@
   },
   "license": "GPL-3.0",
   "dependencies": {
+    "capitalize": "^1.0.0",
     "each": "^0.5.2",
     "lodash": "^3.10.1",
     "mariasql": "^0.1.23",
