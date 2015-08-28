@@ -8,10 +8,10 @@ For the moment, it only works with MariaDB.
 
 ```javascript
 var db = require('magic-models')({
-	host: 'localhost',
-	user: 'root',
-	password: 'toor',
-	database: 'foo'
+	host: 'localhost', // default is 'localhost'
+	user: 'root', // default is USER environment variable
+	password: 'toor', // default is null
+	database: 'foo' // defaut is none
 });
 db.on('error', function(e) {
 	throw e;
