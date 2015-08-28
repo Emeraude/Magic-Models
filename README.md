@@ -31,6 +31,20 @@ db.query(query, function(errors, rows, infos) {
 });
 ```
 
+### Escaping values
+
+The method `db.escape` take a Date object, a string, a boolean, a number or null as parameter and return it escaped as a string.
+
+```javascript
+db.escape(42); // "42"
+db.escape(true); // "true"
+db.escape(null); // "NULL"
+db.escape(new Date('Thu Aug 13 2015 01:17:44')); // "2015-08-13 01:17:44"
+db.escape("foo\nbar"); // "foo\\nbar"
+```
+
+Note that `require('magic-models').escape` will work too.
+
 ## Defining models
 
 Each model name must be in **CamelCase**. Each model will be usable in the `db` object.
