@@ -38,7 +38,9 @@ Each model name must be in **CamelCase**. Each model will be usable in the `db` 
 ```javascript
 db.define('User', {
 	id: {},
-	login: {},
+	login: {
+		required: 'Login must not be empty' // this string will be sent if the login is not specified. A default message will be sent if set to true
+	},
 	mail: {
 		default: null
 	}
