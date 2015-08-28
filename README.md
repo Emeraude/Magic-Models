@@ -11,7 +11,7 @@ var db = require('magic-models')({
 	host: 'localhost',
 	user: 'root',
 	password: 'toor',
-	db: 'foo'
+	database: 'foo'
 });
 db.on('error', function(e) {
 	throw e;
@@ -39,17 +39,36 @@ Each model name must be in **CamelCase**. Each model will be usable in the `db` 
 db.define('User', {
 	id: {},
 	login: {},
-	mail: {}
+	mail: {
+		default: null
+	}
 }, { // this third argument is optionnal
 	erase: false, // if true and if the model is already defined, it will erase it. If false, it will be updated it
 	tableName: 'Members', // change the default name of the table in the database. If not specified, the name of the table must be the name of the model pluralized
 	createdAt: null, // this field will not be setted at the insertion
-	modifiedAt: 'editionDate' // the field 'editionDate' will contain
+	modifiedAt: 'editionDate' // the field 'editionDate' will contain the current date at each update
 });
 ```
 
-By default the orm will look for the *createdAt* and *modifiedAt* fields, it can be modified in the options, as seen above.  
+By default the ORM will look for the *createdAt* and *modifiedAt* fields, it can be modified in the options, as seen above.  
 Note that the name of the model is singular and the ORM will look for a table with the plural name.
+
+### Default values
+
+There is several ways to specify default values for each fields:
+
+```javascript
+default: "foo" // default value will be "foo" at the creation
+default: ["foo", "bar"] // default value will be "foo" at the creation and "bar" at the update
+default: {
+	created: "foo", // default value will be "foo" at the creation and "bar" at the update
+	modified: "bar" // you can specify only one of this two if you want
+}
+default: ["foo-bar"] // default value will be "foo-bar" at the creation and at the update
+defaultCreated: "foo" // default value will be "foo" at the creation
+defaultModified: "bar" // default value will be "bar" at the update
+defaultBoth: "foo-bar" // default value will be "foo-bar" at the creation and at the update
+```
 
 ### Author
 
