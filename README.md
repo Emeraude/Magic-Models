@@ -20,6 +20,14 @@ db.on('error', function(e) {
 });
 ```
 
+You can change the database later:
+
+```javascript
+db.use(dbName, function(e, r, i) {
+	// the three arguments are described below
+});
+```
+
 ## Executing raw queries
 
 ```javascript
@@ -27,7 +35,7 @@ db.query(query, function(errors, rows, infos) {
 	// errors is an array of strings, or undefined
 	// rows is an array of rows, or undefined
 	// infos is an object containing some informations:
-	// insertId, affectedRows, numRows, query, queryTime
+	// insertId, affectedRows, numRows, query, queryTime, totalTime
 });
 ```
 
