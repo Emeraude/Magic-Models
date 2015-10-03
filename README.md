@@ -13,7 +13,9 @@ var db = require('magic-models')({
 	password: 'toor', // default is null
 	database: 'foo' // defaut is none
 });
-db.on('error', function(e) {
+db.on('ready', function() {
+	// Do your work here
+}).on('error', function(e) {
 	throw e;
 }).on('close', function(msg) {
 	console.log('Client closed : ' + msg);
