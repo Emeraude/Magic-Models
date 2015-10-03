@@ -46,11 +46,12 @@ db.query(query, function(errors, rows, infos) {
 The method `db.escape` takes a Date object, a string, a boolean, a number or null as parameter and returns it escaped as a string.
 
 ```javascript
-db.escape(42); // "42"
-db.escape(true); // "true"
-db.escape(null); // "NULL"
-db.escape(new Date('Thu Aug 13 2015 01:17:44')); // "2015-08-13 01:17:44"
-db.escape("foo\nbar"); // "foo\\nbar"
+db.escape(42); // '42'
+db.escape(true); // 'true'
+db.escape(null); // 'NULL'
+db.escape(new Date('Thu Aug 13 2015 01:17:44')); // '2015-08-13 01:17:44'
+db.escape("foo\nbar"); // '"foo\\nbar"'
+db.escape(/[\w.]*@\w*.\w{2,}/i); // '[\\w.]*@\\w*.\\w{2,}'
 ```
 
 Note that `require('magic-models').escape` will work too.
