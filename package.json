@@ -33,6 +33,6 @@
   "os": "linux",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./tests/full.hs"
+    "test": "./tests/full.js"
   }
 }
