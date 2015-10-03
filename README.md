@@ -1,6 +1,6 @@
 # Magic Models
 
-I decied to rewrite it from scratch. A functionnal version could be found on branch **release-0.7** and on **npm**.  
+I decided to rewrite it from scratch. A functionnal version could be found on branch **release-0.7** and on **npm**.  
 A simple, free software magical node.js ORM.  
 For the moment, it only works with MariaDB.
 
@@ -41,7 +41,7 @@ db.query(query, function(errors, rows, infos) {
 
 ### Escaping values
 
-The method `db.escape` take a Date object, a string, a boolean, a number or null as parameter and return it escaped as a string.
+The method `db.escape` takes a Date object, a string, a boolean, a number or null as parameter and returns it escaped as a string.
 
 ```javascript
 db.escape(42); // "42"
@@ -79,7 +79,7 @@ Note that the name of the model is singular and the ORM will look for a table wi
 
 ### Default values
 
-There is several ways to specify default values for each fields:
+There are several ways to specify default values for each fields:
 
 ```javascript
 default: "foo" // default value will be "foo" at the creation
