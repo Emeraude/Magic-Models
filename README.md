@@ -45,15 +45,6 @@ db.query(query, function(errors, rows, infos) {
 });
 ```
 
-You can also do the same asynchronously:
-
-```javascript
-var queryResult = db.queryAsync(query);
-// queryResult will be an object containing the errors, the rows and the infos
-```
-
-Note that this one is **deprecated** since *0.7.0* and will be removed in *1.0.0*
-
 ## Defining Models
 
 ```javascript
@@ -248,7 +239,6 @@ For the moments, the following rules are builtin:
 ```javascript
 is: /^[a-z]*$/i // also accepts a string
 not: /^[0-9]*$/ // also accepts a string
-required: true // deprecated since 0.7.0 ; it will be removed in 1.0.0
 isIn: ["foo", "bar"]
 notIn: ["toto", "titi"]
 isUnique: true
@@ -354,20 +344,6 @@ db.models.User.delete({
 ```
 
 If you give the callback as the first argument of this functions, it will works well, and the object usually used as first argument will be `{}`.
-
-All of this functions have an equivalent who works asynchronously:
-
-```javascript
-db.models.User.allAsync(options);
-db.models.User.findAsync(options);
-db.models.User.countAsync(options);
-db.models.User.describeAsync();
-db.models.User.createAsync(options);
-db.models.User.updateAsync(options);
-db.models.User.deleteAsync(options);
-```
-
-Note that all of this functions are **deprecated** since *0.7.0* and will be removed in *1.0.0*
 
 ### Where
 
