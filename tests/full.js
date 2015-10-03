@@ -18,6 +18,27 @@ exports.escape = function(test) {
   test.done();
 }
 
+exports.where = function(test) {
+  var where = require('../lib/where.js');
+
+  test.equal('`id` = 42', where({id: 42}));
+  test.equal('`id` = 42 AND `login` = "admin"', where({id: 42, login: 'admin'}));
+  test.equal('`id` IN(1, 5)', where({id: [1, 5]}));
+  test.equal('`id` BETWEEN 1 AND 5', where({id: {between: [1, 5]}}));
+  test.equal('`id` > 5', where({id: {gt: 5}}));
+  test.equal('`id` >= 5', where({id: {gte: 5}}));
+  test.equal('`id` < 5', where({id: {lt: 5}}));
+  test.equal('`id` <= 5', where({id: {lte: 5}}));
+  test.equal('`id` != 5', where({id: {ne: 5}}));
+  test.equal('`id` = 5', where({id: {eq: 5}}));
+  test.equal('`id` NOT 5', where({id: {not: 5}}));
+  test.equal('`login` LIKE "%admin%"', where({login: {like: "%admin%"}}));
+  test.equal('`login` REGEXP [a-z]*', where({login: {match: /[a-z]*/i}}));
+  test.equal('((`id` = 5) OR (`login` = "admin"))', where({or: [{id: 5}, {login: "admin"}]}));
+  test.equal('((`type` = "dog" AND `color` = "white" AND `size` = "large") OR (`type` = "cat" AND ((`size` = "small") OR (`color` = "black"))))', where({or:[{type: 'dog', color: 'white', size: 'large'}, {type: 'cat', or: [{size: 'small'}, {color: 'black'}]}]}));
+  test.done();
+}
+
 exports.use = function(test) {
   db.on('ready', function() {
     db.use('testDb', function(e, r, i) {
