@@ -26,7 +26,7 @@
     "capitalize": "^1.0.0",
     "each": "^0.5.2",
     "lodash": "^3.10.1",
-    "mariasql": "^0.1.23",
+    "mariasql": "^0.2.1",
     "pluralize": "^1.1.4"
   },
   "homepage": "https://gitlab.com/Emeraude/magic-models",
