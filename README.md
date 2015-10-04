@@ -97,6 +97,57 @@ defaultModified: "bar" // default value will be "bar" at the update
 defaultBoth: "foo-bar" // default value will be "foo-bar" at the creation and at the update
 ```
 
+### Where
+
+You can combine a lot of options in the where clause:
+
+```javascript
+where: {
+	id: 5, // WHERE `id` = 5
+	id: [1, 5], // WHERE `id` IN(1, 5)
+	id: {
+		bewteen: [1, 5], // WHERE `id` BETWEEN 1 AND 5
+		gt: 5, // WHERE `id` > 5
+		gte: 5, // WHERE `id` >= 5
+		lt: 5, // WHERE `id` < 5
+		lte: 5, // WHERE `id` <= 5
+		ne: 5, // WHERE `id` != 5
+		eq: 5, // WHERE `id` = 5
+		not: 5 // WHERE `id` NOT 5
+	},
+	login: {
+		like: "%admin%", // WHERE `login` LIKE "%admin%"
+		match: /[a-z]*/i // WHERE `login` REGEXP [a-z]*
+	}
+	or: [ // WHERE ((`id` = 5) OR (`login` = "admin"))
+		{id: 5},
+		{login: "admin"}
+	]
+}
+```
+
+You can combine all of this, including **AND** and **OR**, priorities will be respected.
+
+```javascript
+where: {
+	or: [
+		{type: 'dog', color: 'white', size: 'large'},
+		{type: 'cat', or: [
+							{size: 'small'},
+							{color: 'black'}
+						]
+		}
+	]
+}
+```
+
+It'll generate the following request:
+
+```sql
+WHERE ((`type` = "dog" AND `color` = "white" AND `size` = "large") OR (`type` = "cat" AND ((`size` = "small") OR (`color` = "black"))))'
+```
+
+
 ### Author
 
 **Emeraude**
