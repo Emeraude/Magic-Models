@@ -81,7 +81,6 @@ exports.define = {
       test.deepEqual({created: 'oof', modified: 'rab'}, db.User.fields.login.default);
       db.define('User', {login: {defaultBoth: 'foo-bar'}})
       test.deepEqual({created: 'foo-bar', modified: 'foo-bar'}, db.User.fields.login.default);
-      console.log(db.User.fields);
       test.done();
     }
   }
