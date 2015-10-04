@@ -83,5 +83,13 @@ exports.define = {
       test.deepEqual({created: 'foo-bar', modified: 'foo-bar'}, db.User.fields.login.default);
       test.done();
     }
+  },
+
+  options: {
+    erase: function(test) {
+      db.define('User', {}, {erase: true});
+      test.deepEqual({fields: {}, table: 'Users', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt'}, db.User);
+      test.done();
+    }
   }
 }
