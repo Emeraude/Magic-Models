@@ -57,3 +57,32 @@ exports.query = function(test) {
     test.done();
   });
 }
+
+exports.define = {
+  empty: function(test) {
+    db.define('Empty', {});
+    test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt'}, db.Empty);
+    test.done();
+  },
+
+  fields: {
+    default: function(test) {
+      db.define('User', {login: {default: 'foo'}})
+      test.deepEqual({created: 'foo', modified: null}, db.User.fields.login.default);
+      db.define('User', {login: {default: ['oof', 'rab']}})
+      test.deepEqual({created: 'oof', modified: 'rab'}, db.User.fields.login.default);
+      db.define('User', {login: {default: ['foo-bar']}})
+      test.deepEqual({created: 'foo-bar', modified: 'foo-bar'}, db.User.fields.login.default);
+      db.define('User', {login: {default: {created: 'foo', modified: 'bar'}}})
+      test.deepEqual({created: 'foo', modified: 'bar'}, db.User.fields.login.default);
+      db.define('User', {login: {defaultCreated: 'oof'}})
+      test.deepEqual({created: 'oof', modified: 'bar'}, db.User.fields.login.default);
+      db.define('User', {login: {defaultModified: 'rab'}})
+      test.deepEqual({created: 'oof', modified: 'rab'}, db.User.fields.login.default);
+      db.define('User', {login: {defaultBoth: 'foo-bar'}})
+      test.deepEqual({created: 'foo-bar', modified: 'foo-bar'}, db.User.fields.login.default);
+      console.log(db.User.fields);
+      test.done();
+    }
+  }
+}
