@@ -51,7 +51,7 @@ db.escape(true); // 'true'
 db.escape(null); // 'NULL'
 db.escape(new Date('Thu Aug 13 2015 01:17:44')); // '2015-08-13 01:17:44'
 db.escape("foo\nbar"); // '"foo\\nbar"'
-db.escape(/[\w.]*@\w*.\w{2,}/i); // '[\\w.]*@\\w*.\\w{2,}'
+db.escape(/[\w.]*@\w*.\w{2,}/i); // '"[\\\\w.]*@\\\\w*.\\\\w{2,}"'
 ```
 
 Note that `require('magic-models').escape` will work too.
@@ -117,7 +117,7 @@ where: {
 	},
 	login: {
 		like: "%admin%", // WHERE `login` LIKE "%admin%"
-		match: /[a-z]*/i // WHERE `login` REGEXP [a-z]*
+		match: /[a-z]*/i // WHERE `login` REGEXP "[a-z]*"
 	}
 	or: [ // WHERE ((`id` = 5) OR (`login` = "admin"))
 		{id: 5},
