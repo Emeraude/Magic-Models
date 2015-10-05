@@ -67,7 +67,8 @@ db.define('User', {
 		required: 'Login must not be empty' // this string will be sent if the login is not specified. A default message will be sent if set to true
 	},
 	mail: {
-		default: null
+		default: null,
+		fieldName: 'email'
 	}
 }, { // this third argument is optionnal
 	erase: false, // if true and if the model is already defined, it will erase it. If false, it will be updated it
