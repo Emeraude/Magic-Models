@@ -13,7 +13,7 @@ exports.escape = function(test) {
   test.equal('true', escape(true), 'Fail test to escape bool');
   test.equal('"\\\\foo\\nbar\\r\\\'\\\\"', escape("\\foo\nbar\r'\\"), 'Fail test to escape string');
   test.equal('2015-08-13 01:17:44', escape(new Date('Thu Aug 13 2015 01:17:44')), 'Fail test to escape date');
-  test.equal('[\\w.]*@\\w*.\\w{2,}', escape(/[\w.]*@\w*.\w{2,}/i), 'Fail test to escape regexp');
+  test.equal('"[\\\\w.]*@\\\\w*.\\\\w{2,}"', escape(/[\w.]*@\w*.\w{2,}/i), 'Fail test to escape regexp');
   test.equal('NULL', escape(null));
   test.done();
 }
@@ -33,7 +33,7 @@ exports.where = function(test) {
   test.equal('`id` = 5', where({id: {eq: 5}}));
   test.equal('`id` NOT 5', where({id: {not: 5}}));
   test.equal('`login` LIKE "%admin%"', where({login: {like: "%admin%"}}));
-  test.equal('`login` REGEXP [a-z]*', where({login: {match: /[a-z]*/i}}));
+  test.equal('`login` REGEXP "[a-z]*"', where({login: {match: /[a-z]*/i}}));
   test.equal('((`id` = 5) OR (`login` = "admin"))', where({or: [{id: 5}, {login: "admin"}]}));
   test.equal('((`type` = "dog" AND `color` = "white" AND `size` = "large") OR (`type` = "cat" AND ((`size` = "small") OR (`color` = "black"))))', where({or:[{type: 'dog', color: 'white', size: 'large'}, {type: 'cat', or: [{size: 'small'}, {color: 'black'}]}]}));
   test.done();
