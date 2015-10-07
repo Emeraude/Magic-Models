@@ -109,6 +109,12 @@ exports.queryBuilder = {
     test.equal(' LIMIT 5 OFFSET 2', queryBuilder({limit: 5, offset: 2}));
     test.equal('', queryBuilder({offset: 2}));
     test.done();
+  },
+
+  full: function(test) {
+    test.equal(' WHERE `id` = 42 AND `login` = "admin" GROUP BY `login`, `mail` ORDER BY `login` ASC, `mail` DESC LIMIT 5 OFFSET 2', queryBuilder({where: {id: 42, login: 'admin'}, group: ['login', 'mail'], order: {login: 'asc', mail: 'desc'}, limit: 5, offset: 2}));
+    test.equal(' WHERE `ID` = 42 AND `userName` = "admin" GROUP BY `userName`, `email` ORDER BY `userName` ASC, `email` DESC LIMIT 5 OFFSET 2', queryBuilder({where: {id: 42, login: 'admin'}, group: ['login', 'mail'], order: {login: 'asc', mail: 'desc'}, limit: 5, offset: 2}, aliases));
+    test.done();
   }
 }
 
