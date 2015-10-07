@@ -166,6 +166,12 @@ exports.find = {
       test.done();
     });
   },
+  missingField: function(test) {
+    db.User.find({fields: ['mail']}, function(e, r, i) {
+      test.equal('SELECT `mail` AS `mail` FROM `Users`', i.query);
+      test.done();
+    });
+  },
   predicates: function(test) {
     db.User.find({fields: [{'upper': 'login'}]}, function(e, r, i) {
       test.equal('SELECT UPPER(`login`) FROM `Users`', i.query);
