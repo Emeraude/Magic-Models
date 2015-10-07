@@ -49,7 +49,7 @@ exports.where = {
       login: {
 	fieldName: 'userName'
       }
-    }
+    };
     test.equal('`ID` = 42', where({id: 42}, aliases));
     test.equal('`ID` = 42 AND `userName` = "admin"', where({id: 42, login: 'admin'}, aliases));
     test.equal('`ID` IN(1, 5)', where({id: [1, 5]}, aliases));
@@ -65,6 +65,30 @@ exports.where = {
     test.equal('`userName` REGEXP "[a-z]*"', where({login: {match: /[a-z]*/i}}, aliases));
     test.equal('((`ID` = 5) OR (`userName` = "admin"))', where({or: [{id: 5}, {login: "admin"}]}, aliases));
     test.equal('((`type` = "dog" AND `color` = "white" AND `size` = "large") OR (`type` = "cat" AND ((`size` = "small") OR (`color` = "black"))))', where({or:[{type: 'dog', color: 'white', size: 'large'}, {type: 'cat', or: [{size: 'small'}, {color: 'black'}]}]}, aliases));
+    test.done();
+  }
+}
+
+var queryBuilder = require('../lib/queryBuilder.js');
+exports.queryBuilder = {
+  where: function(test) {
+    test.equal(' WHERE `id` = 42 AND `login` = "admin"', queryBuilder({where: {id: 42, login: 'admin'}}));
+    test.done();
+  },
+
+  group: function(test) {
+    var aliases = {
+      login: {
+	fieldName: 'userName'
+      },
+      mail: {
+	fieldName: 'email'
+      }
+    };
+    test.equal(' GROUP BY `login`', queryBuilder({group: 'login'}));
+    test.equal(' GROUP BY `login`, `mail`', queryBuilder({group: ['login', 'mail']}));
+    test.equal(' GROUP BY `userName`', queryBuilder({group: 'login'}, aliases));
+    test.equal(' GROUP BY `userName`, `email`', queryBuilder({group: ['login', 'mail']}, aliases));
     test.done();
   }
 }
