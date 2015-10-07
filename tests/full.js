@@ -91,7 +91,7 @@ exports.query = function(test) {
 exports.define = {
   empty: function(test) {
     db.define('Empty', {});
-    test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt'}, db.Empty);
+    test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find}, db.Empty);
     test.done();
   },
 
@@ -118,7 +118,7 @@ exports.define = {
   options: {
     erase: function(test) {
       db.define('User', {}, {erase: true});
-      test.deepEqual({fields: {}, table: 'Users', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt'}, db.User);
+      test.deepEqual({fields: {}, table: 'Users', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.User.find}, db.User);
       test.done();
     }
   }
