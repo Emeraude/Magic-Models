@@ -69,6 +69,25 @@ exports.where = {
   }
 }
 
+exports.use = function(test) {
+  db.on('ready', function() {
+    db.use('testDb', function(e, r, i) {
+      test.equal(i.query, 'USE `testDb`');
+      db.use('buggy`Db', function(e, r, i) {
+	test.equal(i.query, 'USE `buggy``Db`');
+	test.done();
+      });
+    });
+  });
+}
+
+exports.query = function(test) {
+  db.query('SELECT * FROM `foobar`', function(e, r, i) {
+    test.equal('SELECT * FROM `foobar`', i.query);
+    test.done();
+  });
+}
+
 var queryBuilder = require('../lib/queryBuilder.js');
 exports.queryBuilder = {
   where: function(test) {
@@ -90,26 +109,23 @@ exports.queryBuilder = {
     test.equal(' GROUP BY `userName`', queryBuilder({group: 'login'}, aliases));
     test.equal(' GROUP BY `userName`, `email`', queryBuilder({group: ['login', 'mail']}, aliases));
     test.done();
-  }
-}
+  },
 
-exports.use = function(test) {
-  db.on('ready', function() {
-    db.use('testDb', function(e, r, i) {
-      test.equal(i.query, 'USE `testDb`');
-      db.use('buggy`Db', function(e, r, i) {
-	test.equal(i.query, 'USE `buggy``Db`');
-	test.done();
-      });
-    });
-  });
-}
-
-exports.query = function(test) {
-  db.query('SELECT * FROM `foobar`', function(e, r, i) {
-    test.equal('SELECT * FROM `foobar`', i.query);
+  order: function(test) {
+    var aliases = {
+      login: {
+	fieldName: 'userName'
+      },
+      mail: {
+	fieldName: 'email'
+      }
+    };
+    test.equal(' ORDER BY `login` ASC', queryBuilder({order: {login: 'asc'}}));
+    test.equal(' ORDER BY `login` ASC, `mail` DESC', queryBuilder({order: {login: 'asc', mail: 'desc'}}));
+    test.equal(' ORDER BY `userName` ASC', queryBuilder({order: {login: 'asc'}}, aliases));
+    test.equal(' ORDER BY `userName` ASC, `email` DESC', queryBuilder({order: {login: 'asc', mail: 'desc'}}, aliases));
     test.done();
-  });
+  }
 }
 
 exports.define = {
