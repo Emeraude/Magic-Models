@@ -5,6 +5,7 @@ var db = require('../lib/index.js')({
   user: 'root',
   password: 'toor'
 });
+var aliases = require('./aliases.json');
 
 exports.escape = function(test) {
   var escape = require('../lib/escape.js');
@@ -42,14 +43,6 @@ exports.where = {
 
   aliases: function(test) {
     var where = require('../lib/where.js');
-    var aliases = {
-      id: {
-	fieldName: 'ID'
-      },
-      login: {
-	fieldName: 'userName'
-      }
-    };
     test.equal('`ID` = 42', where({id: 42}, aliases));
     test.equal('`ID` = 42 AND `userName` = "admin"', where({id: 42, login: 'admin'}, aliases));
     test.equal('`ID` IN(1, 5)', where({id: [1, 5]}, aliases));
@@ -96,14 +89,6 @@ exports.queryBuilder = {
   },
 
   group: function(test) {
-    var aliases = {
-      login: {
-	fieldName: 'userName'
-      },
-      mail: {
-	fieldName: 'email'
-      }
-    };
     test.equal(' GROUP BY `login`', queryBuilder({group: 'login'}));
     test.equal(' GROUP BY `login`, `mail`', queryBuilder({group: ['login', 'mail']}));
     test.equal(' GROUP BY `userName`', queryBuilder({group: 'login'}, aliases));
@@ -112,14 +97,6 @@ exports.queryBuilder = {
   },
 
   order: function(test) {
-    var aliases = {
-      login: {
-	fieldName: 'userName'
-      },
-      mail: {
-	fieldName: 'email'
-      }
-    };
     test.equal(' ORDER BY `login` ASC', queryBuilder({order: {login: 'asc'}}));
     test.equal(' ORDER BY `login` ASC, `mail` DESC', queryBuilder({order: {login: 'asc', mail: 'desc'}}));
     test.equal(' ORDER BY `userName` ASC', queryBuilder({order: {login: 'asc'}}, aliases));

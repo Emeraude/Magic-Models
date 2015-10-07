@@ -1,0 +1,11 @@
+{
+  "id": {
+    "fieldName": "ID"
+  },
+  "login": {
+    "fieldName": "userName"
+  },
+  "mail": {
+    "fieldName": "email"
+  }
+}
