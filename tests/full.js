@@ -102,6 +102,13 @@ exports.queryBuilder = {
     test.equal(' ORDER BY `userName` ASC', queryBuilder({order: {login: 'asc'}}, aliases));
     test.equal(' ORDER BY `userName` ASC, `email` DESC', queryBuilder({order: {login: 'asc', mail: 'desc'}}, aliases));
     test.done();
+  },
+
+  limit: function(test) {
+    test.equal(' LIMIT 5', queryBuilder({limit: 5}));
+    test.equal(' LIMIT 5 OFFSET 2', queryBuilder({limit: 5, offset: 2}));
+    test.equal('', queryBuilder({offset: 2}));
+    test.done();
   }
 }
 
