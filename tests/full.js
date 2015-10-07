@@ -175,7 +175,10 @@ exports.find = {
   predicates: function(test) {
     db.User.find({fields: [{'upper': 'login'}]}, function(e, r, i) {
       test.equal('SELECT UPPER(`login`) FROM `Users`', i.query);
-      test.done();
+      db.User.find({fields: [{'count': '*'}]}, function(e, r, i) {
+	test.equal('SELECT COUNT(*) FROM `Users`', i.query);
+	test.done();
+      });
     });
   },
   full: function(test) {
