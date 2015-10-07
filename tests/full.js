@@ -62,25 +62,6 @@ exports.where = {
   }
 }
 
-exports.use = function(test) {
-  db.on('ready', function() {
-    db.use('testDb', function(e, r, i) {
-      test.equal(i.query, 'USE `testDb`');
-      db.use('buggy`Db', function(e, r, i) {
-	test.equal(i.query, 'USE `buggy``Db`');
-	test.done();
-      });
-    });
-  });
-}
-
-exports.query = function(test) {
-  db.query('SELECT * FROM `foobar`', function(e, r, i) {
-    test.equal('SELECT * FROM `foobar`', i.query);
-    test.done();
-  });
-}
-
 var queryBuilder = require('../lib/queryBuilder.js');
 exports.queryBuilder = {
   where: function(test) {
@@ -147,9 +128,58 @@ exports.define = {
 
   options: {
     erase: function(test) {
-      db.define('User', {}, {erase: true});
-      test.deepEqual({fields: {}, table: 'Users', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.User.find}, db.User);
+      db.define('Empty', {login: {default: 'foo'}});
+      db.define('Empty', {}, {erase: true});
+      test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find}, db.Empty);
       test.done();
     }
+  }
+}
+
+exports.use = function(test) {
+  db.use('testDb', function(e, r, i) {
+    test.equal(i.query, 'USE `testDb`');
+    db.use('buggy`Db', function(e, r, i) {
+      test.equal(i.query, 'USE `buggy``Db`');
+      test.done();
+    });
+  });
+}
+
+exports.query = function(test) {
+  db.query('SELECT * FROM `foobar`', function(e, r, i) {
+    test.equal('SELECT * FROM `foobar`', i.query);
+    test.done();
+  });
+}
+
+exports.find = {
+  noOptions: function(test) {
+    db.User.find(function(e, r, i) {
+      test.equal('SELECT `login` AS `login` FROM `Users`', i.query);
+      test.done();
+    });
+  },
+  fields: function(test) {
+    db.User.find({fields: ['login']}, function(e, r, i) {
+      test.equal('SELECT `login` AS `login` FROM `Users`', i.query);
+      test.done();
+    });
+  },
+  predicates: function(test) {
+    db.User.find({fields: [{'upper': 'login'}]}, function(e, r, i) {
+      test.equal('SELECT UPPER(`login`) FROM `Users`', i.query);
+      test.done();
+    });
+  },
+  full: function(test) {
+    db.User.find({fields: ['login', {'upper': 'login'}],
+		  where: {id: 42, login: 'admin'},
+		  group: ['login', 'mail'],
+		  order: {login: 'asc', mail: 'desc'},
+		  limit: 5, offset: 2}, function(e, r, i) {
+		    test.equal('SELECT `login` AS `login`, UPPER(`login`) FROM `Users` WHERE `id` = 42 AND `login` = "admin" GROUP BY `login`, `mail` ORDER BY `login` ASC, `mail` DESC LIMIT 5 OFFSET 2', i.query);
+		    test.done();
+		  });
   }
 }
