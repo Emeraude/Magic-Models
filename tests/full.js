@@ -102,7 +102,7 @@ exports.queryBuilder = {
 exports.define = {
   empty: function(test) {
     db.define('Empty', {});
-    test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find}, db.Empty);
+    test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create}, db.Empty);
     test.done();
   },
 
@@ -130,7 +130,7 @@ exports.define = {
     erase: function(test) {
       db.define('Empty', {login: {default: 'foo'}});
       db.define('Empty', {}, {erase: true});
-      test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find}, db.Empty);
+      test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create}, db.Empty);
       test.done();
     }
   }
