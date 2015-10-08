@@ -192,3 +192,24 @@ exports.find = {
 		  });
   }
 }
+
+exports.create = {
+  noOptions: function(test) {
+    db.User.create(function(e, r, i) {
+      test.equal('INSERT INTO `Users`(`login`, `createdAt`, `modifiedAt`) VALUES("foo-bar", NOW(), NOW())', i.query);
+      test.done();
+    });
+  },
+  fields: function(test) {
+    db.User.create({login: 'root'}, function(e, r, i) {
+      test.equal('INSERT INTO `Users`(`login`, `createdAt`, `modifiedAt`) VALUES("root", NOW(), NOW())', i.query);
+      test.done();
+    });
+  },
+  missingField: function(test) {
+    db.User.create({mail: 'root@example.com'}, function(e, r, i) {
+      test.equal('INSERT INTO `Users`(`mail`, `login`, `createdAt`, `modifiedAt`) VALUES("root@example.com", "foo-bar", NOW(), NOW())', i.query);
+      test.done();
+    });
+  }
+}
