@@ -172,7 +172,7 @@ exports.find = {
       test.done();
     });
   },
-  predicates: function(test) {
+  aggregates: function(test) {
     db.User.find({fields: [{'upper': 'login'}]}, function(e, r, i) {
       test.equal('SELECT UPPER(`login`) FROM `Users`', i.query);
       db.User.find({fields: [{'count': '*'}]}, function(e, r, i) {
