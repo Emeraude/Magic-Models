@@ -102,7 +102,7 @@ exports.queryBuilder = {
 exports.define = {
   empty: function(test) {
     db.define('Empty', {});
-    test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create, update: db.Empty.update}, db.Empty);
+    test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create, update: db.Empty.update, delete: db.Empty.delete}, db.Empty);
     test.done();
   },
 
@@ -130,7 +130,7 @@ exports.define = {
     erase: function(test) {
       db.define('Empty', {login: {default: 'foo'}});
       db.define('Empty', {}, {erase: true});
-      test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create, update: db.Empty.update}, db.Empty);
+      test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create, update: db.Empty.update, delete: db.Empty.delete}, db.Empty);
       test.done();
     }
   }
@@ -236,6 +236,21 @@ exports.update = {
   full: function(test) {
     db.User.update({values: {login: 'root'}, where: {id: 5}}, function(e, r, i) {
       test.equal('UPDATE `Users` SET `login` = "root", `modifiedAt` = NOW() WHERE `id` = 5', i.query);
+      test.done();
+    });
+  }
+}
+
+exports.delete = {
+  noOptions: function(test) {
+    db.User.delete(function(e, r, i) {
+      test.equal('DELETE FROM `Users`', i.query);
+      test.done();
+    });
+  },
+  where: function(test) {
+    db.User.delete({login: 'root'}, function(e, r, i) {
+      test.equal('DELETE FROM `Users` WHERE `login` = "root"', i.query);
       test.done();
     });
   }
