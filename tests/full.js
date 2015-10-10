@@ -213,3 +213,30 @@ exports.create = {
     });
   }
 }
+
+exports.update = {
+  noOptions: function(test) {
+    db.User.update(function(e, r, i) {
+      test.equal('UPDATE `Users` SET `login` = "foo-bar", `modifiedAt` = NOW()', i.query);
+      test.done();
+    });
+  },
+  fields: function(test) {
+    db.User.update({values: {login: 'root'}}, function(e, r, i) {
+      test.equal('UPDATE `Users` SET `login` = "root", `modifiedAt` = NOW()', i.query);
+      test.done();
+    });
+  },
+  missingField: function(test) {
+    db.User.update({values: {mail: 'root@example.com'}}, function(e, r, i) {
+      test.equal('UPDATE `Users` SET `mail` = "root@example.com", `login` = "foo-bar", `modifiedAt` = NOW()', i.query);
+      test.done();
+    });
+  },
+  full: function(test) {
+    db.User.update({values: {login: 'root'}, where: {id: 5}}, function(e, r, i) {
+      test.equal('UPDATE `Users` SET `login` = "root", `modifiedAt` = NOW() WHERE `id` = 5', i.query);
+      test.done();
+    });
+  }
+}
