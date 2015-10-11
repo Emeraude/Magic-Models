@@ -59,6 +59,22 @@ exports.where = {
     test.equal('((`ID` = 5) OR (`userName` = "admin"))', where({or: [{id: 5}, {login: "admin"}]}, aliases));
     test.equal('((`type` = "dog" AND `color` = "white" AND `size` = "large") OR (`type` = "cat" AND ((`size` = "small") OR (`color` = "black"))))', where({or:[{type: 'dog', color: 'white', size: 'large'}, {type: 'cat', or: [{size: 'small'}, {color: 'black'}]}]}, aliases));
     test.done();
+  },
+
+  randomCase: function(test) {
+    var where = require('../lib/where.js');
+
+    test.equal('`id` BETWEEN 1 AND 5', where({id: {betWEEn: [1, 5]}}));
+    test.equal('`id` > 5', where({id: {gT: 5}}));
+    test.equal('`id` >= 5', where({id: {GTe: 5}}));
+    test.equal('`id` < 5', where({id: {lT: 5}}));
+    test.equal('`id` <= 5', where({id: {lTe: 5}}));
+    test.equal('`id` != 5', where({id: {nE: 5}}));
+    test.equal('`id` = 5', where({id: {eQ: 5}}));
+    test.equal('`id` NOT 5', where({id: {NOt: 5}}));
+    test.equal('`login` LIKE "%admin%"', where({login: {lIKe: "%admin%"}}));
+    test.equal('`login` REGEXP "[a-z]*"', where({login: {maTCH: /[a-z]*/i}}));
+    test.done();
   }
 }
 
