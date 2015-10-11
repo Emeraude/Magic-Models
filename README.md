@@ -83,7 +83,7 @@ Note that the name of the model is singular and the ORM will look for a table wi
 It is also possible to specify the directory where the models are located with the following:
 
 ```javascript
-db.load('./models')
+db.load('models')
 ```
 
 A list of directories is also possible:

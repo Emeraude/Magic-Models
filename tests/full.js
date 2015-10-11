@@ -138,6 +138,12 @@ exports.define = {
 
 exports.load = function(test) {
   db.load('models');
+  test.deepEqual({id: {fieldName: 'id', default: {created: null, modified: null}},
+		 userId: {fieldName: 'userId', default: {created: null, modified: null}},
+		 title:	{fieldName: 'title', default: {created: null, modified: null}},
+		  content: {fieldName: 'content', default: {created: null, modified: null}, required: true}}, db.News.fields);
+  test.equal('object', typeof db.Message);
+  test.equal('object', typeof db.Member);
   test.done();
 }
 
