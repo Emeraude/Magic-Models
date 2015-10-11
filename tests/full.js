@@ -149,6 +149,11 @@ exports.use = function(test) {
 exports.query = function(test) {
   db.query('SELECT * FROM `foobar`', function(e, r, i) {
     test.equal('SELECT * FROM `foobar`', i.query);
+    test.equal('number', typeof i.insertId);
+    test.equal('number', typeof i.affectedRows);
+    test.equal('number', typeof i.numRows);
+    test.equal('number', typeof i.totalTime);
+    test.equal('number', typeof i.queryTime);
     test.done();
   });
 }
