@@ -6,6 +6,7 @@ var db = require('../lib/index.js')({
   password: 'toor'
 });
 var aliases = require('./aliases.json');
+var hooks = require('../lib/hooks.js');
 
 exports.escape = function(test) {
   var escape = require('../lib/escape.js');
@@ -128,7 +129,7 @@ exports.queryBuilder = {
 exports.define = {
   empty: function(test) {
     db.define('Empty', {});
-    test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create, update: db.Empty.update, delete: db.Empty.delete, describe: db.Empty.describe}, db.Empty);
+    test.deepEqual({fields: {}, table: 'Empties', primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create, update: db.Empty.update, delete: db.Empty.delete, describe: db.Empty.describe, hooks: {beforeValidate: hooks.beforeValidate, afterValidate: hooks.afterValidate, beforeCreate: hooks.beforeCreate, afterCreate: hooks.afterCreate, beforeSave: hooks.beforeSave, afterSave: hooks.afterSave, beforeUpdate: hooks.beforeUpdate, afterUpdate: hooks.afterUpdate, beforeDelete: hooks.beforeDelete, afterDelete: hooks.afterDelete, beforeFind: hooks.beforeFind, afterFind: hooks.afterFind}}, db.Empty);
     test.done();
   },
 
@@ -154,9 +155,8 @@ exports.define = {
 
   options: {
     erase: function(test) {
-      db.define('Empty', {login: {default: 'foo'}});
       db.define('Empty', {}, {erase: true});
-      test.deepEqual({fields: {}, table: 'Empties', hooks: {}, primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create, update: db.Empty.update, delete: db.Empty.delete, describe: db.Empty.describe}, db.Empty);
+    test.deepEqual({fields: {}, table: 'Empties', primaryKey: null, createdAt: 'createdAt', modifiedAt: 'modifiedAt', find: db.Empty.find, create: db.Empty.create, update: db.Empty.update, delete: db.Empty.delete, describe: db.Empty.describe, hooks: {beforeValidate: hooks.beforeValidate, afterValidate: hooks.afterValidate, beforeCreate: hooks.beforeCreate, afterCreate: hooks.afterCreate, beforeSave: hooks.beforeSave, afterSave: hooks.afterSave, beforeUpdate: hooks.beforeUpdate, afterUpdate: hooks.afterUpdate, beforeDelete: hooks.beforeDelete, afterDelete: hooks.afterDelete, beforeFind: hooks.beforeFind, afterFind: hooks.afterFind}}, db.Empty);
       test.done();
     }
   }
