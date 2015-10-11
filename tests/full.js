@@ -272,3 +272,8 @@ exports.describe = function(test) {
     test.done();
   });
 }
+
+exports.exit = function(test) {
+  db.exit();
+  test.done();
+}
