@@ -74,6 +74,7 @@ exports.where = {
     test.equal('`id` NOT 5', where({id: {NOt: 5}}));
     test.equal('`login` LIKE "%admin%"', where({login: {lIKe: "%admin%"}}));
     test.equal('`login` REGEXP "[a-z]*"', where({login: {maTCH: /[a-z]*/i}}));
+    test.equal('((`id` = 5) OR (`login` = "admin"))', where({oR: [{id: 5}, {login: "admin"}]}));
     test.done();
   }
 }
