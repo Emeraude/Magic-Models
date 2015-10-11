@@ -255,3 +255,10 @@ exports.delete = {
     });
   }
 }
+
+exports.describe = function(test) {
+  db.User.describe(function(e, r, i) {
+    test.equal('DESCRIBE `Users`', i.query);
+    test.done();
+  });
+}
