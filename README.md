@@ -125,6 +125,65 @@ defaultModified: "bar" // default value will be "bar" at the update
 defaultBoth: "foo-bar" // default value will be "foo-bar" at the creation and at the update
 ```
 
+## Models methods
+
+Once you have defined your model, the following methods will be available:  
+Note that all of this methods are calling the db.query method. So, the callbacks of this methods are given to the db.query method and the arguments you will receive are the same.
+
+```javascript
+db.define('User', fields);
+db.models.User.find({
+	fields: ['login', 'password', {count '*'}],
+	where: {
+		id: {
+			'gt': 5
+		}
+	},
+	order: {
+		id: 'DESC'
+	},
+	group: 'login', // you can also give an array if you want to group several fields
+	limit: 20,
+	offset: 10 // it will work only if a limit is defined too
+}, function(errors, rows, infos) {
+	// getting all the rows matching, with only the fields you specified
+	// if you no specify fields, you will get all of the fields defined in the model
+	// note that the order, group, limit, offset and count clauses only work for the method .find, .count and .all
+});
+db.models.User.describe(function(errors, rows, infos) {
+	// getting the description of the table in the database
+	// rows will be an object with the field name as key
+});
+db.models.User.create({
+	login: 'root',
+	password: 'toor'
+}, function(errors, rows, infos) {
+	// check for the validity of the values, but not the default values set in the model definition
+	// create an user in the database with the login 'root' and the password 'toor'
+	// rows will be an object containing all the inserted values
+});
+db.models.User.update({
+	values: {
+		login: 'admin'
+	},
+	where: {
+		id: 1
+	}
+}, function(errors, rows, infos) {
+	// check for the validity of the values
+	// change the login of the users who have the id '1'
+	// rows will be an empty array
+});
+db.models.User.delete({
+	id: 2
+}, function(errors, rows, infos) {
+	// remove the user who have the id '2'
+	// rows will be an empty array
+}
+```
+
+If you give the callback as the first argument of this functions, it will works well, and the object usually used as first argument will be `{}`.
+
 ### Where
 
 You can combine a lot of options in the where clause:
