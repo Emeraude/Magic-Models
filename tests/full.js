@@ -136,14 +136,19 @@ exports.define = {
   }
 }
 
-exports.use = function(test) {
-  db.use('testDb', function(e, r, i) {
-    test.equal(i.query, 'USE `testDb`');
+exports.use = {
+  std: function(test) {
+    db.use('testDb', function(e, r, i) {
+      test.equal(i.query, 'USE `testDb`');
+      test.done();
+    });
+  },
+  escape: function(test) {
     db.use('buggy`Db', function(e, r, i) {
       test.equal(i.query, 'USE `buggy``Db`');
       test.done();
     });
-  });
+  }
 }
 
 exports.query = function(test) {
