@@ -79,7 +79,33 @@ db.define('User', {
 ```
 
 By default the ORM will look for the *createdAt* and *modifiedAt* fields, it can be modified in the options, as seen above.  
-Note that the name of the model is singular and the ORM will look for a table with the plural name.
+Note that the name of the model is singular and the ORM will look for a table with the plural name.  
+It is also possible to specify the directory where the models are located with the following:
+
+```javascript
+db.load('./models')
+```
+
+A list of directories is also possible:
+
+```javascript
+db.load(['./models',
+		 './moreModels'])
+```
+
+Note that the directories are relative to the file where `db.load` is called.  
+In both of this two cases, you need to define your models in this way:
+
+```javascript
+module.exports = function(db) {
+	db.define('User', {
+		id: {},
+		login: {
+			required: 'Login is mandatory'
+		}
+	});
+}
+```
 
 ### Default values
 
