@@ -1,4 +1,6 @@
-# Magic Models
+# Magic Models Legacy 0.7
+## Warning
+It's a legacy version. Some features may not works correctly and will not be fixed since this version is not maintained anymore. You can see how to upgrade to **1.0** [here]((https://gitlab.com/Emeraude/magic-models/wikis/From-0.7-to-1.0) and the associate documentation [here](https://gitlab.com/Emeraude/magic-models#README).
 
 A simple, free software magical node.js ORM.  
 For the moment, it only works with MariaDB.
