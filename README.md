@@ -1,8 +1,9 @@
 # Magic Models
 
-I decided to rewrite it from scratch. A functionnal version could be found on branch **release-0.7** and on **npm**.  
 A simple, free software magical node.js ORM.  
 For the moment, it only works with MariaDB.
+
+A lot of things have changed since **0.7**. You can see the (breaking) changes [here](https://gitlab.com/Emeraude/magic-models/wikis/From-0.7-to-1.0) and the legacy documentation [here](https://gitlab.com/Emeraude/magic-models/blob/release-0.7/README.md).
 
 ## Connection
 
