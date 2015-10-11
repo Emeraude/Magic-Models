@@ -136,6 +136,11 @@ exports.define = {
   }
 }
 
+exports.load = function(test) {
+  db.load('models');
+  test.done();
+}
+
 exports.use = {
   std: function(test) {
     db.use('testDb', function(e, r, i) {
