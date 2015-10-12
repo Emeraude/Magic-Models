@@ -234,6 +234,79 @@ It'll generate the following request:
 WHERE ((`type` = "dog" AND `color` = "white" AND `size` = "large") OR (`type` = "cat" AND ((`size` = "small") OR (`color` = "black"))))'
 ```
 
+## Hooks
+
+You can add functions that will be called before and after each query method.  
+The following hooks are supported:
+
+```javascript
+beforeFind(datas, callback);
+afterFind(errors, rows, infos, callback);
+beforeValidate(datas, callback);
+afterValidate(datas, callback);
+beforeCreate(datas, callback);
+afterCreate(errors, rows, infos, callback);
+beforeUpdate(datas, callback);
+afterUpdate(errors, rows, infos, callback);
+beforeDelete(datas, callback);
+afterDelete(errors, rows, infos, callback);
+```
+
+### Order of operations
+#### Create
+
+```javascript
+// beforeValidate
+validate
+// afterValidate
+// beforeCreate
+create
+// afterCreate
+```
+
+#### Update
+
+```javascript
+// beforeValidate
+validate
+// afterValidate
+// beforeUpdate
+update
+// afterUpdate
+```
+
+#### Delete
+
+```javascript
+// beforeDelete
+delete
+// afterDelete
+```
+
+#### Find
+
+```javascript
+// beforeFind
+find
+// afterFind
+```
+
+### Declaring hooks
+
+Hooks have to be declared in the third parameter of `db.define`.
+
+```javascript
+db.define('User', fields, {
+	beforeValidate: function(datas, callback) {
+		callback(datas);
+	},
+	afterCreate: function(errors, rows, infos, callback) {
+		callback(errors, rows, infos);
+	}
+});
+```
+
+Note that if you don't call the callback, the query will be interrupted.
 
 ### Author
 
