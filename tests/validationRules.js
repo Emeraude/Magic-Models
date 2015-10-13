@@ -61,3 +61,33 @@ exports.not = {
     });
   }
 }
+
+exports.isIn = function(test) {
+  simpleTest('isIn', 'foo', ['foo', 'bar'], function(x) {
+    test.equal(x, true);
+    simpleTest('isIn', 'foo', ['oof', 'rab'], function(x) {
+      test.equal(x, false);
+      test.done();
+    });
+  });
+}
+
+exports.isIn = function(test) {
+  simpleTest('isIn', 'foo', ['foo', 'bar'], function(x) {
+    test.equal(x, true);
+    simpleTest('isIn', 'foo', ['oof', 'rab'], function(x) {
+      test.equal(x, false);
+      test.done();
+    });
+  });
+}
+
+exports.notIn = function(test) {
+  simpleTest('notIn', 'foo', ['foo', 'bar'], function(x) {
+    test.equal(x, false);
+    simpleTest('notIn', 'foo', ['oof', 'rab'], function(x) {
+      test.equal(x, true);
+      test.done();
+    });
+  });
+}
