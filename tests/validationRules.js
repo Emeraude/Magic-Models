@@ -91,3 +91,48 @@ exports.notIn = function(test) {
     });
   });
 }
+
+exports.len = function(test) {
+  simpleTest('len', 'foobar', [4, 12], function(x) {
+    test.equal(x, true);
+    simpleTest('len', 'abcd', [4, 12], function(x) {
+      test.equal(x, true);
+      simpleTest('len', 'abcdefghijkl', [4, 12], function(x) {
+	test.equal(x, true);
+	simpleTest('len', 'abcdefghijklk', [4, 12], function(x) {
+	  test.equal(x, false);
+	  simpleTest('len', 'foo', [4, 12], function(x) {
+	    test.equal(x, false);
+	    test.done();
+	  });
+	});
+      });
+    });
+  });
+}
+
+exports.minLen = function(test) {
+  simpleTest('minLen', 'foobar', 4, function(x) {
+    test.equal(x, true);
+    simpleTest('minLen', 'abcd', 4, function(x) {
+      test.equal(x, true);
+      simpleTest('minLen', 'foo', 4, function(x) {
+	test.equal(x, false);
+	test.done();
+      });
+    });
+  });
+}
+
+exports.maxLen = function(test) {
+  simpleTest('maxLen', 'foobar', 12, function(x) {
+    test.equal(x, true);
+    simpleTest('maxLen', 'abcdefghijkl', 12, function(x) {
+      test.equal(x, true);
+      simpleTest('maxLen', 'abcdefghijklk', 12, function(x) {
+	test.equal(x, false);
+	test.done();
+      });
+    });
+  });
+}
