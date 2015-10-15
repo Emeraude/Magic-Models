@@ -221,9 +221,9 @@ exports.find = {
   },
   aggregates: function(test) {
     db.User.find({fields: [{'upper': 'login'}]}, function(e, r, i) {
-      test.equal('SELECT UPPER(`login`) FROM `Users`', i.query);
+      test.equal('SELECT UPPER(`login`) AS upperLogin FROM `Users`', i.query);
       db.User.find({fields: [{'count': '*'}]}, function(e, r, i) {
-	test.equal('SELECT COUNT(*) FROM `Users`', i.query);
+	test.equal('SELECT COUNT(*) AS countAll FROM `Users`', i.query);
 	test.done();
       });
     });
@@ -234,7 +234,7 @@ exports.find = {
 		  group: ['login', 'mail'],
 		  order: {login: 'asc', mail: 'desc'},
 		  limit: 5, offset: 2}, function(e, r, i) {
-		    test.equal('SELECT `login` AS `login`, UPPER(`login`) FROM `Users` WHERE `id` = 42 AND `login` = "admin" GROUP BY `login`, `mail` ORDER BY `login` ASC, `mail` DESC LIMIT 5 OFFSET 2', i.query);
+		    test.equal('SELECT `login` AS `login`, UPPER(`login`) AS upperLogin FROM `Users` WHERE `id` = 42 AND `login` = "admin" GROUP BY `login`, `mail` ORDER BY `login` ASC, `mail` DESC LIMIT 5 OFFSET 2', i.query);
 		    test.done();
 		  });
   }
