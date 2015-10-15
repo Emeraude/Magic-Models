@@ -99,7 +99,7 @@ exports.len = function(test) {
       test.equal(x, true);
       simpleTest('len', 'abcdefghijkl', [4, 12], function(x) {
 	test.equal(x, true);
-	simpleTest('len', 'abcdefghijklk', [4, 12], function(x) {
+	simpleTest('len', 'abcdefghijklm', [4, 12], function(x) {
 	  test.equal(x, false);
 	  simpleTest('len', 'foo', [4, 12], function(x) {
 	    test.equal(x, false);
@@ -129,7 +129,52 @@ exports.maxLen = function(test) {
     test.equal(x, true);
     simpleTest('maxLen', 'abcdefghijkl', 12, function(x) {
       test.equal(x, true);
-      simpleTest('maxLen', 'abcdefghijklk', 12, function(x) {
+      simpleTest('maxLen', 'abcdefghijklm', 12, function(x) {
+	test.equal(x, false);
+	test.done();
+      });
+    });
+  });
+}
+
+exports.between = function(test) {
+  simpleTest('between', 6, [4.2, 12.1], function(x) {
+    test.equal(x, true);
+    simpleTest('between', 4.2, [4.2, 12.1], function(x) {
+      test.equal(x, true);
+      simpleTest('between', 12.1, [4.2, 12.1], function(x) {
+	test.equal(x, true);
+	simpleTest('between', 12.11, [4.2, 12.1], function(x) {
+	  test.equal(x, false);
+	  simpleTest('between', 4.19, [4.2, 12.1], function(x) {
+	    test.equal(x, false);
+	    test.done();
+	  });
+	});
+      });
+    });
+  });
+}
+
+exports.min = function(test) {
+  simpleTest('min', 6, 4.2, function(x) {
+    test.equal(x, true);
+    simpleTest('min', 4.2, 4.2, function(x) {
+      test.equal(x, true);
+      simpleTest('min', 4.19, 4.2, function(x) {
+	test.equal(x, false);
+	test.done();
+      });
+    });
+  });
+}
+
+exports.max = function(test) {
+  simpleTest('max', 6, 12.1, function(x) {
+    test.equal(x, true);
+    simpleTest('max', 12.1, 12.1, function(x) {
+      test.equal(x, true);
+      simpleTest('max', 12.101, 12.1, function(x) {
 	test.equal(x, false);
 	test.done();
       });
