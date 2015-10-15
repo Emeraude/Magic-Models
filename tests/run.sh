@@ -2,4 +2,4 @@
 
 cd `dirname $0`
 
-nodeunit full.js validationRules.js || return 1
+nodeunit escape.js where.js queryBuilder.js queries.js validationRules.js || exit 1
