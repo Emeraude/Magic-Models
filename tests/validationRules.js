@@ -1,5 +1,3 @@
-#!/usr/bin/env nodeunit
-
 var rules = require('../lib/validationRules');
 
 function simpleTest(rule, user, arg, cb) {

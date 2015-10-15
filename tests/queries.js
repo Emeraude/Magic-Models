@@ -1,5 +1,3 @@
-#!/usr/bin/env nodeunit
-
 var db = require('../lib/index.js')({
   host: 'localhost',
   user: 'root',
