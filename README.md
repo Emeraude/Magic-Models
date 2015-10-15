@@ -133,7 +133,7 @@ Note that all of this methods are calling the db.query method. So, the callbacks
 ```javascript
 db.define('User', fields);
 db.models.User.find({
-	fields: ['login', 'password', {count '*'}],
+	fields: ['login', 'password', {count: '*'}], // count: '*' will be aliased as 'countAll'
 	where: {
 		id: {
 			'gt': 5
