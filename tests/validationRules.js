@@ -179,3 +179,57 @@ exports.max = function(test) {
     });
   });
 }
+
+exports.isIPv4 = function(test) {
+  simpleTest('isIPv4', '127.0.0.1', true, function(x) {
+    test.equal(x, true);
+    simpleTest('isIPv4', '127.0.0', true, function(x) {
+      test.equal(x, false);
+      simpleTest('isIPv4', '192.168.1.256', true, function(x) {
+	test.equal(x, false);
+	test.done();
+      });
+    });
+  });
+}
+
+exports.isIPv6 = function(test) {
+  simpleTest('isIPv6', '::1', true, function(x) {
+    test.equal(x, true);
+    simpleTest('isIPv6', '2a01:e34:ec89:90b0:3ea9:f4ee:fe4e:a328', true, function(x) {
+      test.equal(x, true);
+      simpleTest('isIPv6', '2a01:e34:ec89::f4ff:fe4e:a328', true, function(x) {
+	test.equal(x, true);
+	simpleTest('isIPv6', '2a01:e34:ec89::g4ff:fe4e:a328', true, function(x) {
+	  test.equal(x, false);
+	  test.done();
+	});
+      });
+    });
+  });
+}
+
+exports.isIP = function(test) {
+  simpleTest('isIP', '127.0.0.1', true, function(x) {
+    test.equal(x, true);
+    simpleTest('isIP', '127.0.0', true, function(x) {
+      test.equal(x, false);
+      simpleTest('isIP', '192.168.1.256', true, function(x) {
+	test.equal(x, false);
+	simpleTest('isIP', '::1', true, function(x) {
+	  test.equal(x, true);
+	  simpleTest('isIP', '2a01:e34:ec89:90b0:3ea9:f4ee:fe4e:a328', true, function(x) {
+	    test.equal(x, true);
+	    simpleTest('isIP', '2a01:e34:ec89::f4ff:fe4e:a328', true, function(x) {
+	      test.equal(x, true);
+	      simpleTest('isIP', '2a01:e34:ec89::g4ff:fe4e:a328', true, function(x) {
+		test.equal(x, false);
+		test.done();
+	      });
+	    });
+	  });
+	});
+      });
+    });
+  });
+}
