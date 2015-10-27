@@ -1,4 +1,5 @@
-var db = require('../lib/index.js')({
+var MagicModels = require('../lib/index.js');
+var db = new MagicModels({
   host: 'localhost',
   user: 'root',
   password: 'toor'
