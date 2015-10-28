@@ -8,7 +8,7 @@ A lot of things have changed since **0.7**. You can see the (breaking) changes [
 ## Connection
 
 ```javascript
-var MagicModels = require('magic-models);
+var MagicModels = require('magic-models');
 var db = new MagicModels({
 	host: 'localhost', // default is 'localhost'
 	user: 'root', // default is USER environment variable
