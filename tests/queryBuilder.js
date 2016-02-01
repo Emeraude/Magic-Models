@@ -1,6 +1,6 @@
 var aliases = require('./aliases.json');
-
 var queryBuilder = require('../lib/queryBuilder.js');
+
 exports.queryBuilder = {
   where: function(test) {
     test.equal(' WHERE `id` = 42 AND `login` = "admin"', queryBuilder({where: {id: 42, login: 'admin'}}));

@@ -1,9 +1,8 @@
 var aliases = require('./aliases.json');
+var where = require('../lib/where.js');
 
 exports.where = {
   standard: function(test) {
-    var where = require('../lib/where.js');
-
     test.equal('`id` = 42', where({id: 42}));
     test.equal('`id` = 42 AND `login` = "admin"', where({id: 42, login: 'admin'}));
     test.equal('`id` IN(1, 5)', where({id: [1, 5]}));
@@ -23,7 +22,6 @@ exports.where = {
   },
 
   aliases: function(test) {
-    var where = require('../lib/where.js');
     test.equal('`ID` = 42', where({id: 42}, aliases));
     test.equal('`ID` = 42 AND `userName` = "admin"', where({id: 42, login: 'admin'}, aliases));
     test.equal('`ID` IN(1, 5)', where({id: [1, 5]}, aliases));
@@ -43,8 +41,6 @@ exports.where = {
   },
 
   randomCase: function(test) {
-    var where = require('../lib/where.js');
-
     test.equal('`id` BETWEEN 1 AND 5', where({id: {betWEEn: [1, 5]}}));
     test.equal('`id` > 5', where({id: {gT: 5}}));
     test.equal('`id` >= 5', where({id: {GTe: 5}}));

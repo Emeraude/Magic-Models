@@ -1,6 +1,6 @@
-exports.escape = function(test) {
-  var escape = require('../lib/escape.js');
+var escape = require('../lib/escape.js');
 
+exports.escape = function(test) {
   test.equal('42', escape(42), 'Fail test to escape int');
   test.equal('true', escape(true), 'Fail test to escape bool');
   test.equal('"\\\\foo\\nbar\\r\\\'\\\\"', escape("\\foo\nbar\r'\\"), 'Fail test to escape string');
