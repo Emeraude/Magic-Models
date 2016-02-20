@@ -9,3 +9,9 @@ exports.escape = function(test) {
   test.equal('NULL', escape(null));
   test.done();
 }
+
+exports.fields = function(test) {
+  test.equal('`foobar`', escape.fieldName('foobar'));
+  test.equal('`foo``bar`', escape.fieldName('foo`bar'));
+  test.done();
+}
